@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="p:domain_verify" content="95c9f10a267d4ee5e2b2775076a580f1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="CalcNova.site - Free online calculators: scientific, BMI, loan EMI, percentage, birthday, CGPA, salary, currency and more. Fast, free, no download needed.">
+<meta name="keywords" content="free online calculator, scientific calculator, BMI calculator Pakistan, loan calculator, CGPA calculator, salary calculator Pakistan">
+<link rel="canonical" href="https://calcnova.site/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta property="og:image" content="https://calcnova.site/favicon.svg">
+<title>CalcNova - Free Online Calculators | Scientific, BMI, Loan, CGPA</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KYGR46ZFNW"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CalcNova",
+  "url": "https://calcnova.site",
+  "logo": "https://calcnova.site/favicon.svg",
+  "description": "Free online calculators - BMI, Loan, CGPA, Salary and more"
+}
+</script>
+
+<script>
+// ── ELECTRICITY BILL ───────────────────────────────────────────
+function doElec(){
+  var u=parseFloat(document.getElementById("eu").value);
+  var fc=parseFloat(document.getElementById("efc").value)||500;
+  if(!u||u<1){alert("Please enter units consumed!");return;}
+  // NEPRA 2024-25 domestic slabs (PKR per unit)
+  var bill=0;
+  if(u<=50){bill=u*3.95;}
+  else if(u<=100){bill=50*3.95+(u-50)*7.74;}
+  else if(u<=200){bill=50*3.95+50*7.74+(u-100)*10.06;}
+  else if(u<=300){bill=50*3.95+50*7.74+100*10.06+(u-200)*12.15;}
+  else if(u<=400){bill=50*3.95+50*7.74+100*10.06+100*12.15+(u-300)*14.10;}
+  else if(u<=500){bill=50*3.95+50*7.74+100*10.06+100*12.15+100*14.10+(u-400)*15.45;}
+  else if(u<=600){bill=50*3.95+50*7.74+100*10.06+100*12.15+100*14.10+100*15.45+(u-500)*16.50;}
+  else if(u<=700){bill=50*3.95+50*7.74+100*10.06+100*12.15+100*14.10+100*15.45+100*16.50+(u-600)*17.55;}
+  else{bill=50*3.95+50*7.74+100*10.06+100*12.15+100*14.10+100*15.45+100*16.50+100*17.55+(u-700)*20.00;}
+  var fuel=bill*0.43; // fuel adjustment charge ~43%
+  var tv=bill*0.175; // TV fee
+  var gst=bill*0.18; // 18% GST
+  var total=bill+fc+fuel+gst+tv;
+  document.getElementById("elec-v").textContent="~PKR "+Math.round(total).toLocaleString();
+  document.getElementById("elec-d").innerHTML=
+    "&#x26A1; Units: <b>"+u+"</b><br>"+
+    "&#x1F4B0; Energy charges: <b>PKR "+Math.round(bill).toLocaleString()+"</b><br>"+
+    "&#x1F9FE; Fixed charges: <b>PKR "+fc.toLocaleString()+"</b><br>"+
+    "&#x26FD; Fuel adj: <b>PKR "+Math.round(fuel).toLocaleString()+"</b><br>"+
+    "&#x1F4CA; GST (18%): <b>PKR "+Math.round(gst).toLocaleString()+"</b><br>"+
+    "&#x1F4FA; TV fee: <b>PKR "+Math.round(tv).toLocaleString()+"</b>";
+  showRes("elec-res");
+}
+
+// ── GOLD PRICE ─────────────────────────────────────────────────
+function doGold(){
+  var rate=parseFloat(document.getElementById("grate").value);
+  var purity=parseFloat(document.getElementById("gpure").value);
+  var wt=parseFloat(document.getElementById("gwt").value);
+  var wu=document.getElementById("gwu").value;
+  if(!rate||!wt){alert("Please enter gold rate and weight!");return;}
+  // Convert weight to tola
+  var tolas;
+  if(wu==="tola")tolas=wt;
+  else if(wu==="gram")tolas=wt/11.6638;
+  else tolas=wt*7.3242/11.6638; // sovereign
+  var val=rate*purity*tolas;
+  var purityName=document.getElementById("gpure").options[document.getElementById("gpure").selectedIndex].text;
+  document.getElementById("gold-v").textContent="PKR "+Math.round(val).toLocaleString();
+  document.getElementById("gold-d").innerHTML=
+    "&#x1F947; Weight: <b>"+wt+" "+wu+"</b><br>"+
+    "&#x2728; Purity: <b>"+purityName+"</b><br>"+
+    "&#x1F4C8; Rate: <b>PKR "+rate.toLocaleString()+" per tola</b><br>"+
+    "&#x1F4B0; Value in tolas: <b>"+tolas.toFixed(4)+" tola</b>";
+  showRes("gold-res");
+}
+
+// ── ZAKAT ──────────────────────────────────────────────────────
+function doZakat(){
+  var cash=parseFloat(document.getElementById("zcash").value)||0;
+  var gold=parseFloat(document.getElementById("zgold").value)||0;
+  var silv=parseFloat(document.getElementById("zsilv").value)||0;
+  var stock=parseFloat(document.getElementById("zstock").value)||0;
+  var loan=parseFloat(document.getElementById("zloan").value)||0;
+  var debt=parseFloat(document.getElementById("zdebt").value)||0;
+  var nisab=parseFloat(document.getElementById("znisab").value)||90000;
+  var total=cash+gold+silv+stock+loan-debt;
+  if(total<0)total=0;
+  if(total<nisab){
+    document.getElementById("zakat-v").textContent="No Zakat Due";
+    document.getElementById("zakat-d").innerHTML=
+      "&#x2139;&#xFE0F; Your net assets <b>PKR "+Math.round(total).toLocaleString()+"</b> are below nisab <b>PKR "+nisab.toLocaleString()+"</b><br>Zakat is not obligatory this year.";
+    document.getElementById("zakat-v").style.cssText="font-size:1.1rem;color:#10b981;font-family:Inter,sans-serif;font-weight:700";
+  } else {
+    var zakat=total*0.025;
+    document.getElementById("zakat-v").textContent="PKR "+Math.round(zakat).toLocaleString();
+    document.getElementById("zakat-d").innerHTML=
+      "&#x1F4B0; Total zakatable assets: <b>PKR "+Math.round(total).toLocaleString()+"</b><br>"+
+      "&#x1F4CA; Nisab threshold: <b>PKR "+nisab.toLocaleString()+"</b><br>"+
+      "&#x2705; Zakat rate: <b>2.5%</b><br>"+
+      "&#x1F54C; Monthly: <b>PKR "+Math.round(zakat/12).toLocaleString()+"</b>";
+  }
+  showRes("zakat-res");
+}
+
+// ── MATRIC/FSC ─────────────────────────────────────────────────
+// mtype listener added when popup opens
+function doMatric(){
+  var type=document.getElementById("mtype").value;
+  var obt=parseFloat(document.getElementById("mobt").value);
+  var tot=type==="custom"?parseFloat(document.getElementById("mtot").value):1100;
+  if(!obt||obt<1){alert("Please enter obtained marks!");return;}
+  if(type==="custom"&&(!tot||tot<1)){alert("Please enter total marks!");return;}
+  if(obt>tot){alert("Obtained marks cannot exceed total marks!");return;}
+  var pct=(obt/tot)*100;
+  var grade,div,col;
+  if(pct>=90){grade="A+";div="Distinction";col="#f59e0b";}
+  else if(pct>=80){grade="A";div="First Division";col="#10b981";}
+  else if(pct>=70){grade="B";div="First Division";col="#10b981";}
+  else if(pct>=60){grade="C";div="Second Division";col="#06b6d4";}
+  else if(pct>=50){grade="D";div="Third Division";col="#8892a4";}
+  else if(pct>=33){grade="E";div="Pass";col="#8892a4";}
+  else{grade="F";div="Fail";col="#f43f5e";}
+  var vEl=document.getElementById("matric-v");
+  vEl.textContent=pct.toFixed(2)+"%";
+  vEl.style.background="linear-gradient(135deg,"+col+",#7c3aed)";
+  vEl.style.webkitBackgroundClip="text";
+  vEl.style.webkitTextFillColor="transparent";
+  document.getElementById("matric-d").innerHTML=
+    "&#x1F4DD; Obtained: <b>"+obt+"</b> / <b>"+tot+"</b><br>"+
+    "&#x1F3AB; Grade: <b>"+grade+"</b><br>"+
+    "&#x1F3C6; Division: <b>"+div+"</b>";
+  showRes("matric-res");
+}
+
+// ── PETROL COST ────────────────────────────────────────────────
+function doPetrol(){
+  var dist=parseFloat(document.getElementById("pdist").value);
+  var avg=parseFloat(document.getElementById("pavg").value);
+  var price=parseFloat(document.getElementById("pprice").value)||280;
+  var veh=parseInt(document.getElementById("pveh").value)||1;
+  if(!dist||!avg){alert("Please enter distance and fuel average!");return;}
+  if(avg<1){alert("Fuel average seems too low!");return;}
+  var liters=dist/avg;
+  var total=liters*price;
+  var perPerson=total/veh;
+  document.getElementById("petrol-v").textContent="PKR "+Math.round(total).toLocaleString();
+  document.getElementById("petrol-d").innerHTML=
+    "&#x26FD; Fuel needed: <b>"+liters.toFixed(2)+" liters</b><br>"+
+    "&#x1F4CF; Distance: <b>"+dist+" km</b><br>"+
+    "&#x1F699; Average: <b>"+avg+" km/liter</b><br>"+
+    "&#x1F4B0; Rate: <b>PKR "+price+"/liter</b>"+
+    (veh>1?"<br>&#x1F465; Per person: <b>PKR "+Math.round(perPerson).toLocaleString()+"</b>":"");
+  showRes("petrol-res");
+}
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-KYGR46ZFNW");
+</script>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap");
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#050814;--card:#rgba(255,255,255,0.04);--border:rgba(255,255,255,0.10);
+  --p:#7c3aed;--c:#06b6d4;--a:#f59e0b;--text:#f0f4ff;--dim:#8892a4;
+  --popup:#0d0f1e;--inp:rgba(255,255,255,0.06);--res:rgba(6,182,212,0.08);
+}
+body{background:var(--bg);color:var(--text);font-family:"Inter",sans-serif;min-height:100vh;overflow-x:hidden;}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(124,58,237,0.15) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 40% at 80% 80%,rgba(6,182,212,0.12) 0%,transparent 60%);}
+/* NAV */
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);background:rgba(5,8,20,0.85);}
+.logo{font-family:"Orbitron",monospace;font-weight:900;font-size:1.2rem;background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:5px;flex-wrap:wrap;}
+.nav-link{font-size:0.73rem;color:var(--dim);background:rgba(255,255,255,0.05);padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);text-decoration:none;transition:all 0.2s;white-space:nowrap;}
+.nav-link:hover,.nav-link.active{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4);color:#a78bfa;}
+/* HERO */
+.hero{position:relative;z-index:1;text-align:center;padding:50px 20px 36px;}
+.badge{display:inline-block;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);color:#a78bfa;font-size:0.74rem;padding:4px 14px;border-radius:20px;margin-bottom:18px;letter-spacing:1px;text-transform:uppercase;}
+.hero h1{font-family:"Orbitron",monospace;font-size:clamp(1.6rem,5vw,3rem);font-weight:900;line-height:1.15;margin-bottom:12px;}
+.hero h1 span{background:linear-gradient(135deg,#7c3aed,#06b6d4,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--dim);font-size:0.97rem;max-width:500px;margin:0 auto 30px;line-height:1.7;}
+.stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;}
+.stat-n{font-family:"Orbitron",monospace;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-l{font-size:0.73rem;color:var(--dim);margin-top:2px;}
+/* CALC GRID */
+.sec-title{text-align:center;padding:14px 20px 22px;position:relative;z-index:1;font-size:1rem;font-weight:600;color:var(--dim);letter-spacing:3px;text-transform:uppercase;}
+.sec-title span{color:var(--c);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:12px;max-width:1080px;margin:0 auto 40px;padding:0 18px;position:relative;z-index:1;}
+.card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:18px;padding:20px 12px 16px;cursor:pointer;text-align:center;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);position:relative;overflow:hidden;backdrop-filter:blur(10px);}
+.card::before{content:"";position:absolute;inset:0;border-radius:18px;opacity:0;transition:opacity 0.3s;}
+.card:hover{transform:translateY(-7px) scale(1.03);}
+.card:active{transform:scale(0.97);}
+.cp::before{background:radial-gradient(circle at 50% 0%,rgba(124,58,237,0.2),transparent 70%);}
+.cp:hover{box-shadow:0 18px 50px rgba(124,58,237,0.25);border-color:rgba(124,58,237,0.5);}
+.cp::before,.card:hover::before{opacity:1;}
+.cc::before{background:radial-gradient(circle at 50% 0%,rgba(6,182,212,0.2),transparent 70%);}
+.cc:hover{box-shadow:0 18px 50px rgba(6,182,212,0.25);border-color:rgba(6,182,212,0.5);}
+.ca::before{background:radial-gradient(circle at 50% 0%,rgba(245,158,11,0.2),transparent 70%);}
+.ca:hover{box-shadow:0 18px 50px rgba(245,158,11,0.25);border-color:rgba(245,158,11,0.5);}
+.cr::before{background:radial-gradient(circle at 50% 0%,rgba(244,63,94,0.2),transparent 70%);}
+.cr:hover{box-shadow:0 18px 50px rgba(244,63,94,0.25);border-color:rgba(244,63,94,0.5);}
+.cg::before{background:radial-gradient(circle at 50% 0%,rgba(16,185,129,0.2),transparent 70%);}
+.cg:hover{box-shadow:0 18px 50px rgba(16,185,129,0.25);border-color:rgba(16,185,129,0.5);}
+.ci::before{background:radial-gradient(circle at 50% 0%,rgba(99,102,241,0.2),transparent 70%);}
+.ci:hover{box-shadow:0 18px 50px rgba(99,102,241,0.25);border-color:rgba(99,102,241,0.5);}
+.card-ico{font-size:2.4rem;margin-bottom:9px;display:block;line-height:1;}
+.card-name{font-size:0.84rem;font-weight:600;margin-bottom:2px;}
+.card-desc{font-size:0.68rem;color:var(--dim);line-height:1.4;}
+.card-arr{margin-top:10px;font-size:0.66rem;color:var(--dim);opacity:0;transform:translateY(4px);transition:all 0.2s;}
+.card:hover .card-arr{opacity:1;transform:translateY(0);}
+/* BLOG */
+.blog-wrap{max-width:1080px;margin:0 auto 50px;padding:0 18px;position:relative;z-index:1;}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;}
+.bc{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:18px;padding:22px;text-decoration:none;display:block;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.bc:hover{transform:translateY(-5px);border-color:rgba(124,58,237,0.4);box-shadow:0 18px 45px rgba(124,58,237,0.18);}
+.bt{display:inline-block;font-size:0.68rem;padding:3px 10px;border-radius:20px;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;margin-bottom:10px;text-transform:uppercase;}
+.bi{font-size:1.8rem;margin-bottom:8px;display:block;}
+.bn{font-size:0.96rem;font-weight:700;color:var(--text);line-height:1.4;margin-bottom:7px;}
+.bx{font-size:0.8rem;color:var(--dim);line-height:1.55;margin-bottom:12px;}
+.bm{display:flex;align-items:center;gap:10px;font-size:0.7rem;color:var(--dim);}
+.brd{color:#7c3aed;font-weight:600;}
+/* OVERLAY & POPUP */
+.overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);display:flex;align-items:flex-start;justify-content:center;padding:16px;padding-top:clamp(16px,4vh,50px);opacity:0;pointer-events:none;transition:opacity 0.3s;overflow-y:auto;}
+.overlay.active{opacity:1;pointer-events:all;}
+.popup{background:var(--popup);border:1px solid rgba(255,255,255,0.12);border-radius:26px;width:100%;max-width:430px;max-height:88vh;overflow-y:auto;transform:scale(0.88) translateY(28px);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 40px 100px rgba(0,0,0,0.8);}
+.overlay.active .popup{transform:scale(1) translateY(0);}
+.ph{display:flex;align-items:center;gap:12px;padding:16px 20px 13px;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;background:var(--popup);border-radius:26px 26px 0 0;z-index:2;}
+.pb{
+  width:42px;height:42px;
+  background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(6,182,212,0.2));
+  border:2px solid rgba(124,58,237,0.5);
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+  color:white;
+  transition:all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink:0;
+  box-shadow:0 4px 15px rgba(124,58,237,0.3);
+  position:relative;
+}
+.pb:hover{
+  background:linear-gradient(135deg,rgba(124,58,237,0.6),rgba(6,182,212,0.4));
+  border-color:#7c3aed;
+  transform:scale(1.12);
+  box-shadow:0 6px 20px rgba(124,58,237,0.5);
+}
+.pb:active{transform:scale(0.95);}
+.pb::before{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+  border:1px solid rgba(124,58,237,0.2);
+  animation:pbPulse 2s ease-in-out infinite;
+}
+@keyframes pbPulse{
+  0%,100%{transform:scale(1);opacity:0.5;}
+  50%{transform:scale(1.15);opacity:0;}
+}
+.pb:hover{background:rgba(124,58,237,0.3);border-color:#7c3aed;}
+.ptit{font-size:1rem;font-weight:700;}
+.psub{font-size:0.7rem;color:var(--dim);margin-top:1px;}
+.pbody{padding:20px;}
+/* INPUTS */
+.ig{margin-bottom:13px;}
+.il{font-size:0.72rem;color:var(--dim);margin-bottom:5px;display:block;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+.ii{width:100%;background:var(--inp);border:1px solid rgba(255,255,255,0.10);border-radius:11px;padding:11px 13px;color:var(--text);font-size:0.92rem;outline:none;transition:border-color 0.2s;font-family:"Inter",sans-serif;}
+.ii:focus{border-color:rgba(124,58,237,0.6);box-shadow:0 0 0 3px rgba(124,58,237,0.15);}
+select.ii{cursor:pointer;-webkit-appearance:none;appearance:none;background-color:#131728;}
+select.ii option{background:#131728;color:var(--text);}
+.btn{width:100%;padding:13px;border:none;border-radius:13px;color:white;font-size:0.92rem;font-weight:700;cursor:pointer;margin-top:6px;font-family:"Inter",sans-serif;transition:all 0.25s;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(124,58,237,0.4);}
+.btn:active{transform:scale(0.98);}
+/* RESULT */
+.rb{background:var(--res);border:1px solid rgba(6,182,212,0.25);border-radius:15px;padding:15px 17px;margin-top:14px;display:none;animation:rslide 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+.rb.show{display:block;}
+@keyframes rslide{from{opacity:0;transform:translateY(12px) scale(0.97)}to{opacity:1;transform:none}}
+.rl{font-size:0.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.rv{font-family:"Orbitron",monospace;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#06b6d4,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3;margin-bottom:6px;}
+.rd{font-size:0.82rem;color:var(--dim);line-height:1.7;}
+/* SCIENTIFIC */
+.sdis{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;margin-bottom:12px;}
+.sexpr{font-size:0.78rem;color:var(--dim);min-height:14px;}
+.sval{font-family:"Orbitron",monospace;font-size:1.8rem;font-weight:700;color:var(--text);text-align:right;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.skeys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.k{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:9px;padding:10px 4px;color:var(--text);font-size:0.83rem;font-weight:500;cursor:pointer;text-align:center;transition:all 0.15s;font-family:"Inter",sans-serif;user-select:none;}
+.k:hover{background:rgba(124,58,237,0.3);border-color:rgba(124,58,237,0.5);}
+.k:active{transform:scale(0.93);}
+.kop{color:#a78bfa;font-weight:600;}.kfn{color:#67e8f9;font-size:0.72rem;}.keq{background:linear-gradient(135deg,#7c3aed,#06b6d4);border-color:transparent;color:white;font-weight:700;font-size:1rem;}.kclr{color:#f87171;}.ks2{grid-column:span 2;}
+/* BMI METER */
+.bm-bar{height:11px;border-radius:6px;background:linear-gradient(90deg,#10b981 0%,#f59e0b 40%,#ef4444 70%,#991b1b 100%);margin-top:9px;position:relative;}
+.bm-ndl{position:absolute;top:-4px;width:4px;height:19px;background:white;border-radius:2px;box-shadow:0 0 8px white;transition:left 0.5s cubic-bezier(0.34,1.56,0.64,1);left:0;}
+.bm-lbl{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--dim);margin-top:4px;}
+/* BIRTHDAY */
+.bday-art{text-align:center;font-size:2.8rem;margin-bottom:12px;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* UNIT TOGGLE */
+.utog{display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle;}
+.utog span{cursor:pointer;padding:2px 10px;border-radius:20px;font-size:0.68rem;font-weight:600;border:1px solid rgba(255,255,255,0.2);color:var(--dim);transition:all 0.2s;}
+.utog span.active{background:rgba(124,58,237,0.5);border-color:#7c3aed;color:white;}
+/* FOOTER */
+footer{position:relative;z-index:1;text-align:center;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.05);color:var(--dim);font-size:0.76rem;}
+footer a{color:#7c3aed;text-decoration:none;}
+footer a:hover{color:#06b6d4;}
+/* RESPONSIVE */
+@media(max-width:480px){
+  .grid{grid-template-columns:repeat(2,1fr);}
+  .hero h1{font-size:1.6rem;}
+  nav{padding:12px 16px;}
+  .popup{border-radius:20px;}
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.4);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+
+<nav>
+  <a href="index.html" class="logo">&#9889; CalcNova</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">&#x1F9EE; Calculators</a>
+    <a href="bmi-calculator.html" class="nav-link">&#x2696;&#xFE0F; BMI</a>
+    <a href="age-calculator.html" class="nav-link">&#x1F570; Age</a>
+    <a href="loan-calculator.html" class="nav-link">&#x1F3E6; Loan</a>
+    <a href="cgpa-calculator.html" class="nav-link">&#x1F393; CGPA</a>
+    <a href="percentage-calculator.html" class="nav-link">&#x1F4AF; %</a>
+    <a href="salary-calculator.html" class="nav-link">&#x1F4B0; Salary</a>
+    <a href="blog-bmi.html" class="nav-link">&#x1F4D6; Blog</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">&#x2728; Free &#8212; No Signup &#8212; No Download</div>
+  <h1>Calculate <span>Everything.</span><br>Instantly Free.</h1>
+  <p>Beautiful, fast calculators for students, professionals and everyday use. Click any card to open instantly.</p>
+  <div class="stats">
+    <div><div class="stat-n">17+</div><div class="stat-l">Free Calculators</div></div>
+    <div><div class="stat-n">100%</div><div class="stat-l">Free Forever</div></div>
+    <div><div class="stat-n">0</div><div class="stat-l">Downloads Needed</div></div>
+  </div>
+</section>
+
+<div class="sec-title">Choose a <span>Calculator</span></div>
+<div class="grid">
+  <div class="card cp" onclick="openPopup('sci')"><span class="card-ico">&#x1F52C;</span><div class="card-name">Scientific</div><div class="card-desc">sin, cos, log, powers</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card ca" onclick="openPopup('bday')"><span class="card-ico">&#x1F382;</span><div class="card-name">Birthday</div><div class="card-desc">Age + next birthday</div><div class="card-arr">Open &#8594;</div><a href="blog-birthday.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Birthday Guide &#8594;</a></div>
+  <div class="card cc" onclick="openPopup('pct')"><span class="card-ico">&#x1F4AF;</span><div class="card-name">Percentage</div><div class="card-desc">% of value, change</div><div class="card-arr">Open &#8594;</div><a href="percentage-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Full Guide &#8594;</a></div>
+  <div class="card cg" onclick="openPopup('bmi')"><span class="card-ico">&#x2696;&#xFE0F;</span><div class="card-name">BMI</div><div class="card-desc">Body Mass Index</div><div class="card-arr">Open &#8594;</div><a href="bmi-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Full Guide &#8594;</a></div>
+  <div class="card cr" onclick="openPopup('loan')"><span class="card-ico">&#x1F3E6;</span><div class="card-name">Loan / EMI</div><div class="card-desc">Monthly installment</div><div class="card-arr">Open &#8594;</div><a href="loan-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Full Guide &#8594;</a></div>
+  <div class="card ci" onclick="openPopup('unit')"><span class="card-ico">&#x1F4CF;</span><div class="card-name">Unit Converter</div><div class="card-desc">km, kg, temp, speed</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card cp" onclick="openPopup('age')"><span class="card-ico">&#x1F570;&#xFE0F;</span><div class="card-name">Age Calculator</div><div class="card-desc">Exact years, months, days</div><div class="card-arr">Open &#8594;</div><a href="age-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Full Guide &#8594;</a></div>
+  <div class="card ca" onclick="openPopup('tip')"><span class="card-ico">&#x1F37D;&#xFE0F;</span><div class="card-name">Tip Calculator</div><div class="card-desc">Bill split and tip</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card cc" onclick="openPopup('sal')"><span class="card-ico">&#x1F4B0;</span><div class="card-name">Salary</div><div class="card-desc">Net salary Pakistan</div><div class="card-arr">Open &#8594;</div><a href="salary-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Full Guide &#8594;</a></div>
+  <div class="card cg" onclick="openPopup('cgpa')"><span class="card-ico">&#x1F393;</span><div class="card-name">CGPA</div><div class="card-desc">HEC grading system</div><div class="card-arr">Open &#8594;</div><a href="cgpa-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Full Guide &#8594;</a></div>
+  <div class="card cr" onclick="openPopup('cur')"><span class="card-ico">&#x1F4B1;</span><div class="card-name">Currency</div><div class="card-desc">PKR to USD, EUR, AED</div><div class="card-arr">Open &#8594;</div><a href="blog-dollar.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; Dollar Rate Guide &#8594;</a></div>
+  <div class="card ci" onclick="openPopup('spd')"><span class="card-ico">&#x1F680;</span><div class="card-name">Speed</div><div class="card-desc">Distance, speed, time</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card cg" onclick="openPopup('elec')"><span class="card-ico">&#x26A1;</span><div class="card-name">Electricity Bill</div><div class="card-desc">WAPDA units to bill</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card ca" onclick="openPopup('gold')"><span class="card-ico">&#x1F947;</span><div class="card-name">Gold Price</div><div class="card-desc">Tola, gram, sovereign</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card cp" onclick="openPopup('zakat')"><span class="card-ico">&#x1F54C;</span><div class="card-name">Zakat Calculator</div><div class="card-desc">Annual zakat on savings</div><div class="card-arr">Open &#8594;</div></div>
+  <div class="card cr" onclick="openPopup('matric')"><span class="card-ico">&#x1F4DD;</span><div class="card-name">Matric / FSc %</div><div class="card-desc">Marks to percentage</div><div class="card-arr">Open &#8594;</div><a href="cgpa-calculator.html" onclick="event.stopPropagation()" style="display:block;margin-top:8px;font-size:0.65rem;color:#67e8f9;text-decoration:none;opacity:0.8">&#x1F4D6; CGPA Guide &#8594;</a></div>
+  <div class="card cc" onclick="openPopup('petrol')"><span class="card-ico">&#x26FD;</span><div class="card-name">Petrol Cost</div><div class="card-desc">Trip fuel cost Pakistan</div><div class="card-arr">Open &#8594;</div></div>
+</div>
+
+<div class="sec-title">&#x1F4D6; Guides &amp; <span>Blog Articles</span></div>
+<div class="blog-wrap"><div class="blog-grid">
+  <a href="blog-bmi.html" class="bc"><span class="bt">Health Guide</span><span class="bi">&#x1F4AA;</span><div class="bn">Healthy BMI for Pakistanis &#8212; Diet Guide 2025</div><div class="bx">BMI ranges for South Asians, obesity risks and Pakistani diet tips.</div><div class="bm"><span>&#9201; 8 min</span><span>&#x1F525; 2,400 searches/mo</span><span class="brd">Read &#8594;</span></div></a>
+  <a href="blog-loan.html" class="bc"><span class="bt">Finance Guide</span><span class="bi">&#x1F3E6;</span><div class="bn">Best Bank Loans in Pakistan 2025</div><div class="bx">Compare HBL, UBL, MCB, Meezan Bank rates and eligibility.</div><div class="bm"><span>&#9201; 10 min</span><span>&#x1F525; 3,800 searches/mo</span><span class="brd">Read &#8594;</span></div></a>
+  <a href="blog-cgpa.html" class="bc"><span class="bt">Education</span><span class="bi">&#x1F393;</span><div class="bn">How to Calculate CGPA in Pakistan</div><div class="bx">HEC grading system, GPA to percentage conversion guide.</div><div class="bm"><span>&#9201; 7 min</span><span>&#x1F525; 2,900 searches/mo</span><span class="brd">Read &#8594;</span></div></a>
+  <a href="blog-dollar.html" class="bc"><span class="bt">Currency</span><span class="bi">&#x1F4B1;</span><div class="bn">Dollar Rate Pakistan Today &#8212; USD to PKR 2025</div><div class="bx">Live rates, history, best ways to receive dollars in Pakistan.</div><div class="bm"><span>&#9201; 6 min</span><span>&#x1F525; 8,500 searches/mo</span><span class="brd">Read &#8594;</span></div></a>
+  <a href="blog-salary.html" class="bc"><span class="bt">Finance</span><span class="bi">&#x1F4B0;</span><div class="bn">Minimum Wage &amp; Salary Pakistan 2025</div><div class="bx">Average salaries by industry, income tax brackets Pakistan.</div><div class="bm"><span>&#9201; 9 min</span><span>&#x1F525; 4,200 searches/mo</span><span class="brd">Read &#8594;</span></div></a>
+  <a href="blog-birthday.html" class="bc"><span class="bt">Lifestyle</span><span class="bi">&#x1F382;</span><div class="bn">Unique Birthday Gift Ideas Pakistan 2025</div><div class="bx">Best gifts for every budget with online delivery options.</div><div class="bm"><span>&#9201; 7 min</span><span>&#x1F525; 1,800 searches/mo</span><span class="brd">Read &#8594;</span></div></a>
+</div></div>
+
+<footer>
+  <p>&#169; 2026 CalcNova.site &nbsp;|&nbsp; <a href="about.html">About</a> &nbsp;|&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="contact.html">Contact</a></p>
+  <p style="margin-top:5px">Free Online Calculators &#8212; CalcNova.site</p>
+</footer>
+
+<!-- POPUPS -->
+<!-- SCIENTIFIC -->
+<div class="overlay" id="pop-sci" onclick="bgClose(event,'sci')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('sci')">&#8592;</div>
+      <span onclick="closePopup('sci')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F52C;</span><span class="ptit">Scientific Calculator</span></div><div class="psub">Full scientific functions</div></div></div>
+<div class="pbody">
+<div class="sdis"><div class="sexpr" id="sc-expr"></div><div class="sval" id="sc-val">0</div></div>
+<div class="skeys">
+  <div class="k kfn" onclick="sf('Math.sin(')">sin</div><div class="k kfn" onclick="sf('Math.cos(')">cos</div><div class="k kfn" onclick="sf('Math.tan(')">tan</div><div class="k kfn" onclick="sf('Math.sqrt(')">&#8730;</div>
+  <div class="k kfn" onclick="sf('Math.log(')">log</div><div class="k kfn" onclick="sf('Math.log2(')">log2</div><div class="k kfn" onclick="sf('Math.PI')">&#960;</div><div class="k kfn" onclick="sa('**2')">x&#178;</div>
+  <div class="k kclr" onclick="sc()">C</div><div class="k kclr" onclick="sb()">&#9003;</div><div class="k kop" onclick="sa('%')">%</div><div class="k kop" onclick="sa('/')">&#247;</div>
+  <div class="k" onclick="sa('7')">7</div><div class="k" onclick="sa('8')">8</div><div class="k" onclick="sa('9')">9</div><div class="k kop" onclick="sa('*')">&#215;</div>
+  <div class="k" onclick="sa('4')">4</div><div class="k" onclick="sa('5')">5</div><div class="k" onclick="sa('6')">6</div><div class="k kop" onclick="sa('-')">&#8722;</div>
+  <div class="k" onclick="sa('1')">1</div><div class="k" onclick="sa('2')">2</div><div class="k" onclick="sa('3')">3</div><div class="k kop" onclick="sa('+')">+</div>
+  <div class="k ks2" onclick="sa('0')">0</div><div class="k" onclick="sa('.')">.</div><div class="k keq" onclick="se()">=</div>
+</div>
+</div></div></div>
+
+<!-- BIRTHDAY -->
+<div class="overlay" id="pop-bday" onclick="bgClose(event,'bday')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('bday')">&#8592;</div>
+      <span onclick="closePopup('bday')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F382;</span><span class="ptit">Birthday Calculator</span></div><div class="psub">Age + days lived + next birthday</div></div></div>
+<div class="pbody">
+<div class="bday-art">&#x1F382;&#x1F389;&#x1F388;</div>
+<div class="ig"><label class="il">Your Date of Birth</label><input type="date" class="ii" id="bd-in"></div>
+<button class="btn" style="background:linear-gradient(135deg,#7c3aed,#f59e0b)" onclick="doBday()">&#x1F382; Calculate!</button>
+<div class="rb" id="bd-res"><div class="rl">Your Age</div><div class="rv" id="bd-age"></div><div class="rd" id="bd-det"></div><div id="bd-conf" style="text-align:center;font-size:1.2rem;letter-spacing:5px;margin-top:8px"></div></div>
+</div></div></div>
+
+<!-- PERCENTAGE -->
+<div class="overlay" id="pop-pct" onclick="bgClose(event,'pct')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('pct')">&#8592;</div>
+      <span onclick="closePopup('pct')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F4AF;</span><span class="ptit">Percentage Calculator</span></div><div class="psub">3 types of % calculations</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">What is</label><input type="number" class="ii" id="pn" placeholder="e.g. 25"></div>
+<div class="ig"><label class="il">% of</label><input type="number" class="ii" id="po" placeholder="e.g. 200"></div>
+<button class="btn" style="background:linear-gradient(135deg,#7c3aed,#06b6d4)" onclick="doPct()">&#x1F4AF; Calculate %</button>
+<div class="rb" id="pct-res"><div class="rl">Result</div><div class="rv" id="pct-v"></div><div class="rd" id="pct-d"></div></div>
+<div style="margin-top:16px"><div class="ig"><label class="il">% Change From</label><input type="number" class="ii" id="pf" placeholder="e.g. 100"></div>
+<div class="ig"><label class="il">To</label><input type="number" class="ii" id="pt" placeholder="e.g. 150"></div>
+<button class="btn" style="background:linear-gradient(135deg,#06b6d4,#10b981)" onclick="doPctChg()">&#x1F4C8; % Change</button>
+<div class="rb" id="pctc-res"><div class="rl">% Change</div><div class="rv" id="pctc-v"></div><div class="rd" id="pctc-d"></div></div></div>
+</div></div></div>
+
+<!-- BMI -->
+<div class="overlay" id="pop-bmi" onclick="bgClose(event,'bmi')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('bmi')">&#8592;</div>
+      <span onclick="closePopup('bmi')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x2696;&#xFE0F;</span><span class="ptit">BMI Calculator</span></div><div class="psub">Supports cm and feet</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Weight (kg)</label><input type="number" class="ii" id="bw" placeholder="e.g. 70"></div>
+<div class="ig">
+  <label class="il">Height <div class="utog"><span id="ub-cm" class="active" onclick="setH('cm')">cm</span><span id="ub-ft" onclick="setH('ft')">feet</span></div></label>
+  <input type="number" class="ii" id="bh" placeholder="e.g. 175 cm">
+</div>
+<button class="btn" style="background:linear-gradient(135deg,#10b981,#06b6d4)" onclick="doBMI()">&#x2696;&#xFE0F; Calculate BMI</button>
+<div class="rb" id="bmi-res">
+  <div class="rl">Your BMI</div>
+  <div class="rv" id="bmi-v"></div>
+  <div class="bm-bar"><div class="bm-ndl" id="bmi-ndl"></div></div>
+  <div class="bm-lbl"><span>Thin</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
+  <div class="rd" id="bmi-d" style="margin-top:8px"></div>
+</div>
+</div></div></div>
+
+<!-- LOAN -->
+<div class="overlay" id="pop-loan" onclick="bgClose(event,'loan')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('loan')">&#8592;</div>
+      <span onclick="closePopup('loan')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F3E6;</span><span class="ptit">Loan / EMI Calculator</span></div><div class="psub">Monthly installment</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Loan Amount (PKR)</label><input type="number" class="ii" id="la" placeholder="e.g. 500000"></div>
+<div class="ig"><label class="il">Annual Interest Rate (%)</label><input type="number" class="ii" id="lr" placeholder="e.g. 22"></div>
+<div class="ig"><label class="il">Loan Period (years)</label><input type="number" class="ii" id="ly" placeholder="e.g. 5"></div>
+<button class="btn" style="background:linear-gradient(135deg,#f43f5e,#f59e0b)" onclick="doLoan()">&#x1F3E6; Calculate EMI</button>
+<div class="rb" id="loan-res"><div class="rl">Monthly EMI</div><div class="rv" id="loan-v"></div><div class="rd" id="loan-d"></div></div>
+</div></div></div>
+
+<!-- UNIT -->
+<div class="overlay" id="pop-unit" onclick="bgClose(event,'unit')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('unit')">&#8592;</div>
+      <span onclick="closePopup('unit')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F4CF;</span><span class="ptit">Unit Converter</span></div><div class="psub">Length, weight, temperature, speed</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Category</label><select class="ii" id="uc" onchange="updUnits()"><option value="length">Length</option><option value="weight">Weight</option><option value="temp">Temperature</option><option value="speed">Speed</option></select></div>
+<div class="ig"><label class="il">Value</label><input type="number" class="ii" id="uv" placeholder="Enter value"></div>
+<div style="display:grid;grid-template-columns:1fr 36px 1fr;gap:8px;align-items:end;margin-bottom:14px">
+  <div><label class="il">From</label><select class="ii" id="uf"></select></div>
+  <div style="text-align:center;padding-bottom:10px;font-size:1.1rem;color:#a78bfa">&#8652;</div>
+  <div><label class="il">To</label><select class="ii" id="ut"></select></div>
+</div>
+<button class="btn" style="background:linear-gradient(135deg,#6366f1,#06b6d4)" onclick="doUnit()">&#x1F4CF; Convert</button>
+<div class="rb" id="unit-res"><div class="rl">Result</div><div class="rv" id="unit-v"></div><div class="rd" id="unit-d"></div></div>
+</div></div></div>
+
+<!-- AGE -->
+<div class="overlay" id="pop-age" onclick="bgClose(event,'age')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('age')">&#8592;</div>
+      <span onclick="closePopup('age')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F570;&#xFE0F;</span><span class="ptit">Age Calculator</span></div><div class="psub">Exact years, months and days</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Date of Birth</label><input type="date" class="ii" id="ag-dob"></div>
+<div class="ig"><label class="il">Calculate Age On</label><input type="date" class="ii" id="ag-on"></div>
+<button class="btn" style="background:linear-gradient(135deg,#7c3aed,#f59e0b)" onclick="doAge()">&#x1F570;&#xFE0F; Calculate Age</button>
+<div class="rb" id="age-res"><div class="rl">Your Age</div><div class="rv" id="age-v"></div><div class="rd" id="age-d"></div></div>
+</div></div></div>
+
+<!-- TIP -->
+<div class="overlay" id="pop-tip" onclick="bgClose(event,'tip')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('tip')">&#8592;</div>
+      <span onclick="closePopup('tip')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F37D;&#xFE0F;</span><span class="ptit">Tip Calculator</span></div><div class="psub">Bill split and tip</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Bill Amount</label><input type="number" class="ii" id="tb" placeholder="e.g. 2500"></div>
+<div class="ig"><label class="il">Tip %</label><input type="number" class="ii" id="tp" value="15"></div>
+<div class="ig"><label class="il">Number of People</label><input type="number" class="ii" id="tn" value="2"></div>
+<button class="btn" style="background:linear-gradient(135deg,#f59e0b,#f43f5e)" onclick="doTip()">&#x1F37D;&#xFE0F; Calculate Tip</button>
+<div class="rb" id="tip-res"><div class="rl">Per Person Total</div><div class="rv" id="tip-v"></div><div class="rd" id="tip-d"></div></div>
+</div></div></div>
+
+<!-- SALARY -->
+<div class="overlay" id="pop-sal" onclick="bgClose(event,'sal')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('sal')">&#8592;</div>
+      <span onclick="closePopup('sal')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F4B0;</span><span class="ptit">Salary Calculator</span></div><div class="psub">Pakistan net salary estimator</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Gross Monthly Salary (PKR)</label><input type="number" class="ii" id="sg" placeholder="e.g. 80000"></div>
+<div class="ig"><label class="il">EOBI Deduction</label><select class="ii" id="seo"><option value="yes">Yes (1% deducted)</option><option value="no">No</option></select></div>
+<button class="btn" style="background:linear-gradient(135deg,#10b981,#7c3aed)" onclick="doSal()">&#x1F4B0; Calculate Net Salary</button>
+<div class="rb" id="sal-res"><div class="rl">Estimated Net Salary</div><div class="rv" id="sal-v"></div><div class="rd" id="sal-d"></div></div>
+</div></div></div>
+
+<!-- CGPA -->
+<div class="overlay" id="pop-cgpa" onclick="bgClose(event,'cgpa')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('cgpa')">&#8592;</div>
+      <span onclick="closePopup('cgpa')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F393;</span><span class="ptit">CGPA / SGPA Calculator</span></div><div class="psub">All Pakistani universities supported</div></div></div>
+<div class="pbody">
+<!-- TABS -->
+<div style="display:flex;gap:8px;margin-bottom:16px">
+  <button id="tab-cgpa" onclick="switchTab('cgpa')" style="flex:1;padding:9px;background:linear-gradient(135deg,#7c3aed,#6366f1);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;font-size:.85rem">CGPA (All Semesters)</button>
+  <button id="tab-sgpa" onclick="switchTab('sgpa')" style="flex:1;padding:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:var(--dim);cursor:pointer;font-family:Inter,sans-serif;font-size:.85rem">SGPA (One Semester)</button>
+</div>
+
+<!-- GPA SCALE -->
+<div class="ig">
+  <label class="il">University GPA Scale</label>
+  <select class="ii" id="gpa-scale">
+    <option value="4">4.0 Scale (NUST, FAST, COMSATS, UET, IBA)</option>
+    <option value="4">4.0 Scale (Aga Khan, Lahore University)</option>
+    <option value="5">5.0 Scale (Some universities)</option>
+    <option value="100">100 Marks Scale (Punjab University style)</option>
+  </select>
+</div>
+
+<!-- CGPA TAB -->
+<div id="cgpa-tab">
+  <div style="font-size:.78rem;color:var(--dim);margin-bottom:10px">Add all subjects from all semesters:</div>
+  <div id="cgpa-rows"></div>
+  <button onclick="addRow('cgpa')" style="width:100%;padding:9px;background:rgba(124,58,237,0.15);border:1px dashed rgba(124,58,237,0.4);border-radius:10px;color:#a78bfa;cursor:pointer;margin-bottom:10px;font-family:Inter,sans-serif;font-size:.85rem">+ Add Subject</button>
+  <button class="btn" style="background:linear-gradient(135deg,#6366f1,#f59e0b)" onclick="doCGPA()">&#x1F393; Calculate CGPA</button>
+</div>
+
+<!-- SGPA TAB -->
+<div id="sgpa-tab" style="display:none">
+  <div style="font-size:.78rem;color:var(--dim);margin-bottom:10px">Add subjects from current semester only:</div>
+  <div id="sgpa-rows"></div>
+  <button onclick="addRow('sgpa')" style="width:100%;padding:9px;background:rgba(6,182,212,0.15);border:1px dashed rgba(6,182,212,0.4);border-radius:10px;color:#67e8f9;cursor:pointer;margin-bottom:10px;font-family:Inter,sans-serif;font-size:.85rem">+ Add Subject</button>
+  <button class="btn" style="background:linear-gradient(135deg,#06b6d4,#6366f1)" onclick="doSGPA()">&#x1F4CA; Calculate SGPA</button>
+</div>
+
+<div class="rb" id="cgpa-res"><div class="rl" id="cgpa-rl">Your CGPA</div><div class="rv" id="cgpa-v"></div><div class="rd" id="cgpa-d"></div></div>
+</div></div></div>
+
+<!-- CURRENCY -->
+<div class="overlay" id="pop-cur" onclick="bgClose(event,'cur')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('cur')">&#8592;</div>
+      <span onclick="closePopup('cur')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F4B1;</span><span class="ptit">Currency Converter</span></div><div class="psub">Any currency to any currency</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Amount</label><input type="number" class="ii" id="cur-amt" placeholder="e.g. 1000" value="1000"></div>
+<div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:8px;align-items:end;margin-bottom:14px">
+  <div>
+    <label class="il">From</label>
+    <select class="ii" id="cur-from"></select>
+  </div>
+  <div style="text-align:center;padding-bottom:10px">
+    <button onclick="swapCur()" style="background:rgba(124,58,237,0.3);border:1px solid rgba(124,58,237,0.5);border-radius:50%;width:32px;height:32px;color:#a78bfa;cursor:pointer;font-size:1rem">&#8646;</button>
+  </div>
+  <div>
+    <label class="il">To</label>
+    <select class="ii" id="cur-to"></select>
+  </div>
+</div>
+<button class="btn" style="background:linear-gradient(135deg,#06b6d4,#10b981)" onclick="doCur()">&#x1F4B1; Convert</button>
+<div class="rb" id="cur-res">
+  <div class="rl">Result</div>
+  <div class="rv" id="cur-rv"></div>
+  <div class="rd" id="cur-d"></div>
+  <div style="font-size:.65rem;color:var(--dim);margin-top:8px">*Approximate rates. Check live rates for accuracy.</div>
+</div>
+</div></div></div>
+
+<!-- SPEED -->
+<div class="overlay" id="pop-spd" onclick="bgClose(event,'spd')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('spd')">&#8592;</div>
+      <span onclick="closePopup('spd')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F680;</span><span class="ptit">Speed Calculator</span></div><div class="psub">Distance, speed, time</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Find</label><select class="ii" id="sf-find"><option value="speed">Speed</option><option value="dist">Distance</option><option value="time">Time</option></select></div>
+<div class="ig"><label class="il">Distance (km)</label><input type="number" class="ii" id="sd" placeholder="e.g. 120"></div>
+<div class="ig"><label class="il">Speed (km/h)</label><input type="number" class="ii" id="ss" placeholder="e.g. 60"></div>
+<div class="ig"><label class="il">Time (hours)</label><input type="number" class="ii" id="st" placeholder="e.g. 2"></div>
+<button class="btn" style="background:linear-gradient(135deg,#6366f1,#f43f5e)" onclick="doSpd()">&#x1F680; Calculate</button>
+<div class="rb" id="spd-res"><div class="rl">Result</div><div class="rv" id="spd-v"></div><div class="rd" id="spd-d"></div></div>
+</div></div></div>
+
+<script>
+// ── POPUP CONTROLS ─────────────────────────────────────────────
+function openPopup(id){
+  var el=document.getElementById("pop-"+id);
+  if(!el)return;
+  el.classList.add("active");
+  document.body.style.overflow="hidden";
+  if(id==="unit")updUnits();
+  if(id==="cur")initCur();
+  if(id==="age")document.getElementById("ag-on").value=new Date().toISOString().split("T")[0];
+  if(id==="cgpa"&&!document.getElementById("cgpa-rows").children.length)addRow("cgpa");
+  if(id==="matric"){
+    var mt=document.getElementById("mtype");
+    if(mt&&!mt._init){
+      mt._init=true;
+      mt.addEventListener("change",function(){
+        document.getElementById("mtot-group").style.display=this.value==="custom"?"block":"none";
+      });
+    }
+  }
+}
+function closePopup(id){
+  var el=document.getElementById("pop-"+id);
+  if(el){el.classList.remove("active");document.body.style.overflow="";}
+}
+function bgClose(e,id){if(e.target===document.getElementById("pop-"+id))closePopup(id);}
+function showRes(id){
+  var el=document.getElementById(id);
+  if(el){el.classList.add("show");setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"nearest"});},120);}
+}
+
+// ── SCIENTIFIC ─────────────────────────────────────────────────
+var _ex="";
+function sa(v){_ex+=v;document.getElementById("sc-val").textContent=_ex||"0";}
+function sf(fn){_ex+=fn;document.getElementById("sc-val").textContent=_ex;}
+function sc(){_ex="";document.getElementById("sc-val").textContent="0";document.getElementById("sc-expr").textContent="";}
+function sb(){_ex=_ex.slice(0,-1);document.getElementById("sc-val").textContent=_ex||"0";}
+function se(){
+  try{
+    document.getElementById("sc-expr").textContent=_ex+" =";
+    var r=parseFloat(eval(_ex).toPrecision(10));
+    document.getElementById("sc-val").textContent=r;
+    _ex=String(r);
+  }catch(e){document.getElementById("sc-val").textContent="Error";_ex="";}
+}
+
+// ── BIRTHDAY ───────────────────────────────────────────────────
+function doBday(){
+  var d=new Date(document.getElementById("bd-in").value);
+  if(!d.getTime()){alert("Please select your date of birth!");return;}
+  var n=new Date();
+  var y=n.getFullYear()-d.getFullYear(),m=n.getMonth()-d.getMonth(),dd=n.getDate()-d.getDate();
+  if(dd<0){m--;dd+=30;}
+  if(m<0){y--;m+=12;}
+  var tot=Math.floor((n-d)/86400000);
+  var nb=new Date(n.getFullYear(),d.getMonth(),d.getDate());
+  if(nb<=n)nb.setFullYear(n.getFullYear()+1);
+  var dtn=Math.ceil((nb-n)/86400000);
+  var isT=d.getDate()===n.getDate()&&d.getMonth()===n.getMonth();
+  document.getElementById("bd-age").textContent=y+" years, "+m+" months, "+dd+" days";
+  document.getElementById("bd-det").innerHTML="&#x1F5D3;&#xFE0F; Days lived: <b>"+tot.toLocaleString()+"</b><br>&#x1F389; Next birthday: <b>"+dtn+" days away</b><br>&#x1F4C5; Born: "+d.toDateString();
+  document.getElementById("bd-conf").textContent=isT?"&#x1F38A;&#x1F389;&#x1F382;&#x1F381;":"";
+  showRes("bd-res");
+}
+
+// ── PERCENTAGE ─────────────────────────────────────────────────
+function doPct(){
+  var n=parseFloat(document.getElementById("pn").value),o=parseFloat(document.getElementById("po").value);
+  if(isNaN(n)||isNaN(o)){alert("Please enter both values!");return;}
+  var r=(n/100)*o;
+  document.getElementById("pct-v").textContent=r.toFixed(2);
+  document.getElementById("pct-d").textContent=n+"% of "+o+" = "+r.toFixed(4);
+  showRes("pct-res");
+}
+function doPctChg(){
+  var f=parseFloat(document.getElementById("pf").value),t=parseFloat(document.getElementById("pt").value);
+  if(isNaN(f)||isNaN(t)||f===0){alert("Please enter both values!");return;}
+  var c=((t-f)/Math.abs(f))*100;
+  document.getElementById("pctc-v").textContent=(c>=0?"+":"")+c.toFixed(2)+"%";
+  document.getElementById("pctc-d").textContent=(c>=0?"Increase":"Decrease")+" from "+f+" to "+t;
+  showRes("pctc-res");
+}
+
+// ── BMI ────────────────────────────────────────────────────────
+var _hUnit="cm";
+function setH(u){
+  _hUnit=u;
+  var inp=document.getElementById("bh");
+  document.getElementById("ub-cm").classList.toggle("active",u==="cm");
+  document.getElementById("ub-ft").classList.toggle("active",u==="ft");
+  inp.placeholder=u==="cm"?"e.g. 175 cm":"e.g. 5.8 feet";
+  inp.value="";
+}
+function doBMI(){
+  var w=parseFloat(document.getElementById("bw").value);
+  var hRaw=parseFloat(document.getElementById("bh").value);
+  if(!w||isNaN(w)||w<1||w>500){alert("Please enter a valid weight in kg!");return;}
+  if(!hRaw||isNaN(hRaw)){alert("Please enter your height!");return;}
+  var h;
+  if(_hUnit==="ft"||hRaw<=9){
+    var feet=Math.floor(hRaw);
+    var inches=Math.round((hRaw-feet)*10);
+    h=(feet*30.48+inches*2.54)/100;
+  }else{
+    h=hRaw/100;
+  }
+  if(h<1.0||h>2.5){alert("Height seems invalid! In cm enter 100-250, in feet enter 4.5-7.5");return;}
+  var b=w/(h*h);
+  var cat,col;
+  if(b<18.5){cat="Underweight";col="#06b6d4";}
+  else if(b<25){cat="Normal ✅";col="#10b981";}
+  else if(b<30){cat="Overweight ⚠️";col="#f59e0b";}
+  else{cat="Obese ❗";col="#ef4444";}
+  var pct=Math.min(Math.max((b-10)/30*100,2),98);
+  var vEl=document.getElementById("bmi-v");
+  vEl.textContent=b.toFixed(1)+" kg/m²";
+  vEl.style.background="linear-gradient(135deg,"+col+",#7c3aed)";
+  vEl.style.webkitBackgroundClip="text";
+  vEl.style.webkitTextFillColor="transparent";
+  document.getElementById("bmi-ndl").style.left="calc("+pct+"% - 2px)";
+  document.getElementById("bmi-d").textContent="Category: "+cat;
+  showRes("bmi-res");
+}
+
+// ── LOAN ───────────────────────────────────────────────────────
+function doLoan(){
+  var P=parseFloat(document.getElementById("la").value);
+  var r=parseFloat(document.getElementById("lr").value)/100/12;
+  var n=parseFloat(document.getElementById("ly").value)*12;
+  if(!P||!r||!n){alert("Please fill all loan fields!");return;}
+  var e=P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  var tot=e*n;
+  document.getElementById("loan-v").textContent=Math.round(e).toLocaleString()+" PKR";
+  document.getElementById("loan-d").innerHTML="&#x1F4B0; Total payable: <b>"+Math.round(tot).toLocaleString()+"</b><br>&#x1F4CA; Total interest: <b>"+Math.round(tot-P).toLocaleString()+"</b><br>&#x1F4C5; Total months: "+n;
+  showRes("loan-res");
+}
+
+// ── UNIT CONVERTER ─────────────────────────────────────────────
+var _ud={
+  length:{km:1000,m:1,cm:0.01,mm:0.001,mile:1609.344,yard:0.9144,foot:0.3048,inch:0.0254},
+  weight:{kg:1,g:0.001,mg:0.000001,lb:0.453592,oz:0.0283495,ton:1000},
+  speed:{"km/h":1,"m/s":3.6,"mph":1.60934,knot:1.852}
+};
+function updUnits(){
+  var c=document.getElementById("uc").value;
+  var keys=c==="temp"?["Celsius","Fahrenheit","Kelvin"]:Object.keys(_ud[c]);
+  ["uf","ut"].forEach(function(id,i){
+    var s=document.getElementById(id);
+    s.innerHTML=keys.map(function(x){return"<option>"+x+"</option>";}).join("");
+    if(i===1&&keys.length>1)s.selectedIndex=1;
+  });
+}
+function doUnit(){
+  var c=document.getElementById("uc").value;
+  var v=parseFloat(document.getElementById("uv").value);
+  var f=document.getElementById("uf").value;
+  var t=document.getElementById("ut").value;
+  if(isNaN(v)){alert("Please enter a value!");return;}
+  var r;
+  if(c==="temp"){
+    var cel;
+    if(f==="Celsius")cel=v;
+    else if(f==="Fahrenheit")cel=(v-32)*5/9;
+    else cel=v-273.15;
+    if(t==="Celsius")r=cel;
+    else if(t==="Fahrenheit")r=cel*9/5+32;
+    else r=cel+273.15;
+  }else{
+    r=(v*_ud[c][f])/_ud[c][t];
+  }
+  document.getElementById("unit-v").textContent=parseFloat(r.toPrecision(8))+" "+t;
+  document.getElementById("unit-d").textContent=v+" "+f+" = "+parseFloat(r.toPrecision(8))+" "+t;
+  showRes("unit-res");
+}
+
+// ── AGE ────────────────────────────────────────────────────────
+function doAge(){
+  var d=new Date(document.getElementById("ag-dob").value);
+  var o=new Date(document.getElementById("ag-on").value);
+  if(!d.getTime()||!o.getTime()){alert("Please select both dates!");return;}
+  var y=o.getFullYear()-d.getFullYear(),m=o.getMonth()-d.getMonth(),dd=o.getDate()-d.getDate();
+  if(dd<0){m--;dd+=new Date(o.getFullYear(),o.getMonth(),0).getDate();}
+  if(m<0){y--;m+=12;}
+  var w=Math.floor((o-d)/(7*86400000));
+  document.getElementById("age-v").textContent=y+"y "+m+"m "+dd+"d";
+  document.getElementById("age-d").innerHTML="&#x1F4C5; Total weeks: <b>"+w.toLocaleString()+"</b><br>&#x1F4C5; Total days: <b>"+Math.floor((o-d)/86400000).toLocaleString()+"</b>";
+  showRes("age-res");
+}
+
+// ── TIP ────────────────────────────────────────────────────────
+function doTip(){
+  var b=parseFloat(document.getElementById("tb").value);
+  var p=parseFloat(document.getElementById("tp").value)||15;
+  var n=parseInt(document.getElementById("tn").value)||1;
+  if(!b){alert("Please enter bill amount!");return;}
+  var tip=b*p/100,tot=b+tip,pp=tot/n;
+  document.getElementById("tip-v").textContent=pp.toFixed(2)+" PKR";
+  document.getElementById("tip-d").innerHTML="&#x1F4B5; Bill: <b>"+b.toFixed(2)+"</b> | Tip: <b>"+tip.toFixed(2)+"</b><br>&#x1F465; Total for "+n+" people: <b>"+tot.toFixed(2)+"</b>";
+  showRes("tip-res");
+}
+
+// ── SALARY ─────────────────────────────────────────────────────
+function doSal(){
+  var g=parseFloat(document.getElementById("sg").value);
+  if(!g||g<1){alert("Please enter gross salary!");return;}
+  var eobi=document.getElementById("seo").value==="yes";
+  var tax=0,annual=g*12;
+  if(annual>600000&&annual<=1200000)tax=(annual-600000)*0.025/12;
+  else if(annual>1200000&&annual<=2400000)tax=(15000+(annual-1200000)*0.125)/12;
+  else if(annual>2400000&&annual<=3600000)tax=(165000+(annual-2400000)*0.20)/12;
+  else if(annual>3600000)tax=(405000+(annual-3600000)*0.25)/12;
+  var eobiD=eobi?g*0.01:0;
+  var net=g-tax-eobiD;
+  document.getElementById("sal-v").textContent=Math.round(net).toLocaleString()+" PKR";
+  document.getElementById("sal-d").innerHTML="&#x1F4BC; Gross: <b>"+g.toLocaleString()+"</b><br>&#x1F4CA; Est. Tax: <b>"+Math.round(tax).toLocaleString()+"</b>"+(eobi?"<br>&#x1F3DB;&#xFE0F; EOBI: <b>"+Math.round(eobiD).toLocaleString()+"</b>":"")+"<br><small style='color:var(--dim)'>*Estimate only</small>";
+  showRes("sal-res");
+}
+
+// ── CGPA ───────────────────────────────────────────────────────
+// ── CGPA / SGPA ────────────────────────────────────────────────
+function switchTab(t){
+  document.getElementById("cgpa-tab").style.display=t==="cgpa"?"block":"none";
+  document.getElementById("sgpa-tab").style.display=t==="sgpa"?"block":"none";
+  document.getElementById("tab-cgpa").style.cssText=t==="cgpa"?"flex:1;padding:9px;background:linear-gradient(135deg,#7c3aed,#6366f1);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;font-size:.85rem":"flex:1;padding:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:var(--dim);cursor:pointer;font-family:Inter,sans-serif;font-size:.85rem";
+  document.getElementById("tab-sgpa").style.cssText=t==="sgpa"?"flex:1;padding:9px;background:linear-gradient(135deg,#06b6d4,#6366f1);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;font-size:.85rem":"flex:1;padding:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:var(--dim);cursor:pointer;font-family:Inter,sans-serif;font-size:.85rem";
+  document.getElementById("cgpa-res").classList.remove("show");
+}
+function addRow(type){
+  var tableId=type==="sgpa"?"sgpa-rows":"cgpa-rows";
+  var cls=type==="sgpa"?"sgpa-gp":"cgpa-gp";
+  var clsc=type==="sgpa"?"sgpa-cr":"cgpa-cr";
+  var scale=parseFloat(document.getElementById("gpa-scale").value)||4;
+  var d=document.getElementById(tableId);
+  var r=document.createElement("div");
+  r.style.cssText="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:7px;margin-bottom:8px;";
+  r.innerHTML="<input class='ii' placeholder='Subject' style='padding:8px 10px;font-size:.82rem'>"
+    +"<input class='ii "+cls+"' type='number' placeholder='GPA(0-"+scale+")' min='0' max='"+scale+"' step='0.1' style='padding:8px 10px;font-size:.82rem'>"
+    +"<input class='ii "+clsc+"' type='number' placeholder='Cr' value='3' style='padding:8px 10px;font-size:.82rem'>"
+    +"<button onclick='this.parentElement.remove()' style='background:rgba(244,63,94,.2);border:1px solid rgba(244,63,94,.3);border-radius:8px;color:#f87171;cursor:pointer;padding:0 9px;font-size:.85rem'>&#x2715;</button>";
+  d.appendChild(r);
+}
+function calcGPA(gpClass, crClass){
+  var scale=parseFloat(document.getElementById("gpa-scale").value)||4;
+  var gps=document.querySelectorAll("."+gpClass);
+  var crs=document.querySelectorAll("."+crClass);
+  var tw=0,tp=0;
+  gps.forEach(function(g,i){
+    var gv=parseFloat(g.value),cv=parseFloat(crs[i].value);
+    if(!isNaN(gv)&&!isNaN(cv)&&cv>0&&gv<=scale){tp+=gv*cv;tw+=cv;}
+  });
+  return {tw:tw,tp:tp,scale:scale};
+}
+function getGrade(gpa,scale){
+  var p=(gpa/scale)*100;
+  if(p>=90)return"A+ (Excellent!)";
+  if(p>=85)return"A";
+  if(p>=80)return"A-";
+  if(p>=75)return"B+";
+  if(p>=70)return"B";
+  if(p>=65)return"B-";
+  if(p>=60)return"C+";
+  if(p>=55)return"C";
+  if(p>=50)return"D";
+  return"F (Fail)";
+}
+function doCGPA(){
+  var r=calcGPA("cgpa-gp","cgpa-cr");
+  if(!r.tw){alert("Please add at least one subject!");return;}
+  var cgpa=(r.tp/r.tw);
+  var pct=(cgpa/r.scale*100).toFixed(1);
+  document.getElementById("cgpa-rl").textContent="Your CGPA";
+  document.getElementById("cgpa-v").textContent=cgpa.toFixed(2)+" / "+r.scale+".0";
+  document.getElementById("cgpa-d").innerHTML=
+    "&#x1F4CA; Grade: <b>"+getGrade(cgpa,r.scale)+"</b><br>"+
+    "&#x1F4C8; Percentage: <b>"+pct+"%</b><br>"+
+    "&#x2696;&#xFE0F; Total Credit Hours: <b>"+r.tw+"</b><br>"+
+    "&#x1F3AF; Quality Points: <b>"+r.tp.toFixed(2)+"</b>";
+  showRes("cgpa-res");
+}
+function doSGPA(){
+  var r=calcGPA("sgpa-gp","sgpa-cr");
+  if(!r.tw){alert("Please add at least one subject!");return;}
+  var sgpa=(r.tp/r.tw);
+  var pct=(sgpa/r.scale*100).toFixed(1);
+  document.getElementById("cgpa-rl").textContent="Your SGPA";
+  document.getElementById("cgpa-v").textContent=sgpa.toFixed(2)+" / "+r.scale+".0";
+  document.getElementById("cgpa-d").innerHTML=
+    "&#x1F4CA; Grade: <b>"+getGrade(sgpa,r.scale)+"</b><br>"+
+    "&#x1F4C8; Percentage: <b>"+pct+"%</b><br>"+
+    "&#x2696;&#xFE0F; Semester Credits: <b>"+r.tw+"</b><br>"+
+    "&#x1F3AF; Quality Points: <b>"+r.tp.toFixed(2)+"</b><br>"+
+    "<small style='color:var(--dim)'>SGPA = this semester only</small>";
+  showRes("cgpa-res");
+}
+
+// ── CURRENCY ───────────────────────────────────────────────────
+var _curRates = {
+  "PKR":1,"USD":0.003559,"EUR":0.003300,"GBP":0.002825,
+  "AED":0.01307,"SAR":0.01335,"INR":0.2985,"BDT":0.3920,
+  "CNY":0.02564,"JPY":0.5380,"GBP":0.002825,"CAD":0.004854,
+  "AUD":0.005464,"CHF":0.003209,"KWD":0.001093,"QAR":0.01296,
+  "OMR":0.001370,"BHD":0.001342,"MYR":0.01570,"SGD":0.004746,
+  "TRY":0.1220,"ZAR":0.06514,"NGN":5.520,"EGP":0.1757,
+  "IDR":56.84,"THB":0.1229,"KRW":4.935,"SEK":0.03680,
+  "NOK":0.03875,"DKK":0.02462
+};
+var _curNames = {
+  "PKR":"&#x1F1F5;&#x1F1F0; Pakistani Rupee","USD":"&#x1F1FA;&#x1F1F8; US Dollar",
+  "EUR":"&#x1F1EA;&#x1F1FA; Euro","GBP":"&#x1F1EC;&#x1F1E7; British Pound",
+  "AED":"&#x1F1E6;&#x1F1EA; UAE Dirham","SAR":"&#x1F1F8;&#x1F1E6; Saudi Riyal",
+  "INR":"&#x1F1EE;&#x1F1F3; Indian Rupee","BDT":"&#x1F1E7;&#x1F1E9; Bangladeshi Taka",
+  "CNY":"&#x1F1E8;&#x1F1F3; Chinese Yuan","JPY":"&#x1F1EF;&#x1F1F5; Japanese Yen",
+  "CAD":"&#x1F1E8;&#x1F1E6; Canadian Dollar","AUD":"&#x1F1E6;&#x1F1FA; Australian Dollar",
+  "CHF":"&#x1F1E8;&#x1F1ED; Swiss Franc","KWD":"&#x1F1F0;&#x1F1FC; Kuwaiti Dinar",
+  "QAR":"&#x1F1F6;&#x1F1E6; Qatari Riyal","OMR":"&#x1F1F4;&#x1F1F2; Omani Rial",
+  "BHD":"&#x1F1E7;&#x1F1ED; Bahraini Dinar","MYR":"&#x1F1F2;&#x1F1FE; Malaysian Ringgit",
+  "SGD":"&#x1F1F8;&#x1F1EC; Singapore Dollar","TRY":"&#x1F1F9;&#x1F1F7; Turkish Lira",
+  "ZAR":"&#x1F1FF;&#x1F1E6; South African Rand","NGN":"&#x1F1F3;&#x1F1EC; Nigerian Naira",
+  "EGP":"&#x1F1EA;&#x1F1EC; Egyptian Pound","IDR":"&#x1F1EE;&#x1F1E9; Indonesian Rupiah",
+  "THB":"&#x1F1F9;&#x1F1ED; Thai Baht","KRW":"&#x1F1F0;&#x1F1F7; South Korean Won",
+  "SEK":"&#x1F1F8;&#x1F1EA; Swedish Krona","NOK":"&#x1F1F3;&#x1F1F4; Norwegian Krone",
+  "DKK":"&#x1F1E9;&#x1F1F0; Danish Krone"
+};
+function initCur(){
+  var codes=Object.keys(_curRates);
+  var fSel=document.getElementById("cur-from");
+  var tSel=document.getElementById("cur-to");
+  if(!fSel)return;
+  fSel.innerHTML="";tSel.innerHTML="";
+  codes.forEach(function(c){
+    var opt="<option value='"+c+"'>"+(_curNames[c]||c)+" ("+c+")</option>";
+    fSel.innerHTML+=opt;tSel.innerHTML+=opt;
+  });
+  fSel.value="PKR";tSel.value="USD";
+}
+function swapCur(){
+  var f=document.getElementById("cur-from").value;
+  var t=document.getElementById("cur-to").value;
+  document.getElementById("cur-from").value=t;
+  document.getElementById("cur-to").value=f;
+}
+function doCur(){
+  var amt=parseFloat(document.getElementById("cur-amt").value);
+  var from=document.getElementById("cur-from").value;
+  var to=document.getElementById("cur-to").value;
+  if(!amt||amt<0){alert("Please enter an amount!");return;}
+  if(!_curRates[from]||!_curRates[to]){alert("Currency not found!");return;}
+  // Convert via PKR base
+  var inPKR=amt/_curRates[from];
+  var result=inPKR*_curRates[to];
+  var fromName=_curNames[from]||from;
+  var toName=_curNames[to]||to;
+  document.getElementById("cur-rv").textContent=result.toFixed(4)+" "+to;
+  document.getElementById("cur-d").innerHTML=
+    fromName+"<br><b>"+amt+" "+from+"</b> = <b>"+result.toFixed(4)+" "+to+"</b><br>"+toName+
+    "<br><br>Rate: 1 "+from+" = "+((_curRates[to]/_curRates[from]).toFixed(6))+" "+to;
+  showRes("cur-res");
+}
+
+// ── SPEED ──────────────────────────────────────────────────────
+function doSpd(){
+  var fi=document.getElementById("sf-find").value;
+  var d=parseFloat(document.getElementById("sd").value);
+  var s=parseFloat(document.getElementById("ss").value);
+  var t=parseFloat(document.getElementById("st").value);
+  var r,u,det;
+  if(fi==="speed"&&d&&t){r=d/t;u="km/h";det=d+"km in "+t+"h";}
+  else if(fi==="dist"&&s&&t){r=s*t;u="km";det="At "+s+"km/h for "+t+"h";}
+  else if(fi==="time"&&d&&s){r=d/s;u="hours";det=d+"km at "+s+"km/h";}
+  else{alert("Please fill the required fields!");return;}
+  document.getElementById("spd-v").textContent=r.toFixed(2)+" "+u;
+  document.getElementById("spd-d").textContent=det;
+  showRes("spd-res");
+}
+
+// ── INIT ───────────────────────────────────────────────────────
+updUnits();
+
+// Auto-open popup from blog article links
+(function(){
+  var h=window.location.hash;
+  if(h&&h.startsWith("#open-")){
+    var id=h.replace("#open-","");
+    setTimeout(function(){openPopup(id);},400);
+  }
+})();
+</script>
+
+<!-- ELECTRICITY BILL -->
+<div class="overlay" id="pop-elec" onclick="bgClose(event,'elec')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('elec')">&#8592;</div>
+      <span onclick="closePopup('elec')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x26A1;</span><span class="ptit">Electricity Bill</span></div><div class="psub">WAPDA / LESCO / KESC units calculator</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Units Consumed (kWh)</label><input type="number" class="ii" id="eu" placeholder="e.g. 250"></div>
+<div class="ig"><label class="il">Meter Type</label><select class="ii" id="em"><option value="domestic">Domestic (Residential)</option><option value="commercial">Commercial</option></select></div>
+<div class="ig"><label class="il">Fixed Charges / Month (PKR)</label><input type="number" class="ii" id="efc" placeholder="e.g. 500" value="500"></div>
+<button class="btn" style="background:linear-gradient(135deg,#f59e0b,#10b981)" onclick="doElec()">&#x26A1; Calculate Bill</button>
+<div class="rb" id="elec-res">
+  <div class="rl">Estimated Bill</div>
+  <div class="rv" id="elec-v"></div>
+  <div class="rd" id="elec-d"></div>
+  <div style="font-size:.65rem;color:var(--dim);margin-top:8px">*Based on current NEPRA slab rates. Actual bill may vary with taxes and surcharges.</div>
+</div>
+</div></div></div>
+
+<!-- GOLD PRICE -->
+<div class="overlay" id="pop-gold" onclick="bgClose(event,'gold')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('gold')">&#8592;</div>
+      <span onclick="closePopup('gold')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F947;</span><span class="ptit">Gold Price Calculator</span></div><div class="psub">24K, 22K, 21K, 18K gold</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Today's Gold Rate (PKR per tola)</label><input type="number" class="ii" id="grate" placeholder="e.g. 275000"></div>
+<div class="ig"><label class="il">Gold Purity</label><select class="ii" id="gpure"><option value="1">24K (Pure Gold)</option><option value="0.9167" selected>22K</option><option value="0.875">21K</option><option value="0.75">18K</option></select></div>
+<div class="ig"><label class="il">Weight</label><input type="number" class="ii" id="gwt" placeholder="e.g. 2.5"></div>
+<div class="ig"><label class="il">Weight Unit</label><select class="ii" id="gwu"><option value="tola">Tola (11.66g)</option><option value="gram">Gram</option><option value="sovereign">Sovereign (7.32g)</option></select></div>
+<button class="btn" style="background:linear-gradient(135deg,#f59e0b,#f43f5e)" onclick="doGold()">&#x1F947; Calculate Gold Value</button>
+<div class="rb" id="gold-res">
+  <div class="rl">Gold Value</div>
+  <div class="rv" id="gold-v"></div>
+  <div class="rd" id="gold-d"></div>
+  <div style="font-size:.65rem;color:var(--dim);margin-top:8px">*Enter today's rate from Sarafa Bazaar. Rates change daily.</div>
+</div>
+</div></div></div>
+
+<!-- ZAKAT -->
+<div class="overlay" id="pop-zakat" onclick="bgClose(event,'zakat')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('zakat')">&#8592;</div>
+      <span onclick="closePopup('zakat')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F54C;</span><span class="ptit">Zakat Calculator</span></div><div class="psub">2.5% on nisab — annual zakat</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Cash &amp; Bank Balance (PKR)</label><input type="number" class="ii" id="zcash" placeholder="e.g. 500000" value="0"></div>
+<div class="ig"><label class="il">Gold Value (PKR)</label><input type="number" class="ii" id="zgold" placeholder="e.g. 200000" value="0"></div>
+<div class="ig"><label class="il">Silver Value (PKR)</label><input type="number" class="ii" id="zsilv" placeholder="e.g. 50000" value="0"></div>
+<div class="ig"><label class="il">Business Stock / Inventory (PKR)</label><input type="number" class="ii" id="zstock" placeholder="e.g. 100000" value="0"></div>
+<div class="ig"><label class="il">Loans you have given (PKR)</label><input type="number" class="ii" id="zloan" placeholder="e.g. 0" value="0"></div>
+<div class="ig"><label class="il">Debts you owe (PKR)</label><input type="number" class="ii" id="zdebt" placeholder="e.g. 0" value="0"></div>
+<div class="ig"><label class="il">Silver Nisab Rate (PKR) — approx</label><input type="number" class="ii" id="znisab" placeholder="e.g. 90000" value="90000"></div>
+<button class="btn" style="background:linear-gradient(135deg,#7c3aed,#10b981)" onclick="doZakat()">&#x1F54C; Calculate Zakat</button>
+<div class="rb" id="zakat-res">
+  <div class="rl">Your Zakat</div>
+  <div class="rv" id="zakat-v"></div>
+  <div class="rd" id="zakat-d"></div>
+  <div style="font-size:.65rem;color:var(--dim);margin-top:8px">*Based on silver nisab standard (most scholars recommend). Consult a scholar for personal guidance.</div>
+</div>
+</div></div></div>
+
+<!-- MATRIC/FSC % -->
+<div class="overlay" id="pop-matric" onclick="bgClose(event,'matric')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('matric')">&#8592;</div>
+      <span onclick="closePopup('matric')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x1F4DD;</span><span class="ptit">Matric / FSc Calculator</span></div><div class="psub">Marks to percentage + grade</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Exam Type</label><select class="ii" id="mtype"><option value="matric">Matric (Total: 1100)</option><option value="fsc">FSc / FA (Total: 1100)</option><option value="custom">Custom Total Marks</option></select></div>
+<div class="ig"><label class="il">Obtained Marks</label><input type="number" class="ii" id="mobt" placeholder="e.g. 950"></div>
+<div class="ig" id="mtot-group" style="display:none"><label class="il">Total Marks</label><input type="number" class="ii" id="mtot" placeholder="e.g. 1100"></div>
+<button class="btn" style="background:linear-gradient(135deg,#f43f5e,#6366f1)" onclick="doMatric()">&#x1F4DD; Calculate Percentage</button>
+<div class="rb" id="matric-res">
+  <div class="rl">Your Percentage</div>
+  <div class="rv" id="matric-v"></div>
+  <div class="rd" id="matric-d"></div>
+</div>
+</div></div></div>
+
+<!-- PETROL COST -->
+<div class="overlay" id="pop-petrol" onclick="bgClose(event,'petrol')">
+<div class="popup"><div class="ph"><div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="pb" onclick="closePopup('petrol')">&#8592;</div>
+      <span onclick="closePopup('petrol')" style="font-size:0.72rem;color:#a78bfa;font-weight:600;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;opacity:0.8;transition:opacity 0.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">Back</span>
+    </div><div><div style="display:flex;align-items:center;gap:8px"><span style="font-size:1.4rem">&#x26FD;</span><span class="ptit">Petrol Cost Calculator</span></div><div class="psub">Trip fuel cost Pakistan</div></div></div>
+<div class="pbody">
+<div class="ig"><label class="il">Distance (km)</label><input type="number" class="ii" id="pdist" placeholder="e.g. 300"></div>
+<div class="ig"><label class="il">Fuel Average (km per liter)</label><input type="number" class="ii" id="pavg" placeholder="e.g. 12"></div>
+<div class="ig"><label class="il">Petrol Price (PKR per liter)</label><input type="number" class="ii" id="pprice" placeholder="e.g. 280" value="280"></div>
+<div class="ig"><label class="il">Number of Vehicles / People</label><input type="number" class="ii" id="pveh" value="1"></div>
+<button class="btn" style="background:linear-gradient(135deg,#06b6d4,#7c3aed)" onclick="doPetrol()">&#x26FD; Calculate Fuel Cost</button>
+<div class="rb" id="petrol-res">
+  <div class="rl">Total Fuel Cost</div>
+  <div class="rv" id="petrol-v"></div>
+  <div class="rd" id="petrol-d"></div>
+</div>
+</div></div></div>
+
+</body>
+</html>

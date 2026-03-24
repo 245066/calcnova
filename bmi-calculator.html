@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BMI Calculator — Body Mass Index Online | CalcNova</title>
+<meta name="description" content="Free BMI calculator online. Calculate Body Mass Index instantly using kg and cm or feet. Includes BMI formula, categories, healthy range chart and FAQ.">
+<meta name="keywords" content="BMI calculator, body mass index calculator, BMI calculator online free, BMI formula, healthy BMI range, BMI calculator kg cm, BMI Pakistan">
+<link rel="canonical" href="https://calcnova.site/bmi-calculator.html">
+<meta property="og:title" content="BMI Calculator — Body Mass Index Online | CalcNova">
+<meta property="og:description" content="Free BMI calculator online. Calculate Body Mass Index instantly using kg and cm or feet. Includes BMI formula, categories, healthy range chart and FAQ.">
+<meta property="og:url" content="https://calcnova.site/bmi-calculator.html">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KYGR46ZFNW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KYGR46ZFNW');</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--bg:#050814;--text:#f0f4ff;--dim:#8892a4;--dim2:#a0aec0;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.10);--p:#7c3aed;--c:#06b6d4;--a:#f59e0b;--popup:#0d0f1e;--inp:rgba(255,255,255,0.06);--res:rgba(6,182,212,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(124,58,237,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(6,182,212,0.10) 0%,transparent 60%);}
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);background:rgba(5,8,20,0.85);}
+.logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1.2rem;background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:5px;flex-wrap:wrap;}
+.nav-link{font-size:0.72rem;color:var(--dim);background:rgba(255,255,255,0.04);padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);text-decoration:none;transition:all 0.2s;}
+.nav-link:hover{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4);color:#a78bfa;}
+/* LAYOUT */
+.page-wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:40px 22px 70px;display:grid;grid-template-columns:1fr 320px;gap:32px;}
+@media(max-width:768px){.page-wrap{grid-template-columns:1fr;}.sidebar{display:none;}}
+.main-col{}
+/* BREADCRUMB */
+.bc{font-size:0.75rem;color:var(--dim);margin-bottom:18px;}
+.bc a{color:#7c3aed;text-decoration:none;}
+/* HERO */
+.calc-hero{background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(6,182,212,0.08));border:1px solid rgba(124,58,237,0.2);border-radius:24px;padding:28px;margin-bottom:24px;}
+.hero-tag{display:inline-block;font-size:0.7rem;padding:3px 12px;border-radius:20px;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.calc-hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
+.calc-hero p{font-size:0.92rem;color:var(--dim2);line-height:1.7;}
+/* CALCULATOR BOX */
+.calc-box{background:var(--popup);border:1px solid rgba(255,255,255,0.1);border-radius:22px;padding:24px;margin-bottom:24px;}
+.calc-box-title{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.ig{margin-bottom:13px;}
+.il{font-size:0.71rem;color:var(--dim);margin-bottom:5px;display:block;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.ii{width:100%;background:var(--inp);border:1px solid rgba(255,255,255,0.10);border-radius:11px;padding:11px 13px;color:var(--text);font-size:0.92rem;outline:none;transition:all 0.2s;font-family:'Inter',sans-serif;}
+.ii:focus{border-color:rgba(124,58,237,0.6);box-shadow:0 0 0 3px rgba(124,58,237,0.12);}
+select.ii{cursor:pointer;-webkit-appearance:none;background-color:#0d1120;}
+select.ii option{background:#0d1120;}
+.btn{width:100%;padding:13px;border:none;border-radius:13px;color:white;font-size:0.93rem;font-weight:700;cursor:pointer;margin-top:5px;font-family:'Inter',sans-serif;transition:all 0.25s;}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.rb{background:var(--res);border:1px solid rgba(6,182,212,0.25);border-radius:14px;padding:15px 17px;margin-top:14px;display:none;animation:rslide 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+.rb.show{display:block;}
+@keyframes rslide{from{opacity:0;transform:translateY(10px) scale(0.97);}to{opacity:1;transform:none;}}
+.rl{font-size:0.67rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.rv{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#06b6d4,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3;margin-bottom:6px;}
+.rd{font-size:0.82rem;color:var(--dim2);line-height:1.75;}
+.rd b{color:var(--text);}
+/* CONTENT SECTIONS */
+.content-section{margin-bottom:22px;}
+.cs-title{font-size:1.15rem;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px;}
+.cs-title .cs-icon{font-size:1.1rem;}
+p.cp{font-size:0.93rem;color:var(--dim2);line-height:1.85;margin-bottom:10px;}
+p.cp b{color:var(--text);}
+/* FORMULA BOX */
+.formula-box{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-left:4px solid #7c3aed;border-radius:0 14px 14px 0;padding:16px 18px;margin:14px 0;font-family:'Inter',monospace;}
+.formula-text{font-size:1.05rem;font-weight:700;color:#a78bfa;letter-spacing:0.5px;}
+.formula-note{font-size:0.78rem;color:var(--dim);margin-top:6px;line-height:1.5;}
+/* STEPS */
+.steps{list-style:none;margin:12px 0;}
+.steps li{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;font-size:0.9rem;color:var(--dim2);line-height:1.6;}
+.step-num{min-width:24px;height:24px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+/* EXAMPLE BOX */
+.example-box{background:rgba(6,182,212,0.07);border:1px solid rgba(6,182,212,0.2);border-radius:14px;padding:16px 18px;margin:14px 0;}
+.example-box .ex-title{font-size:0.75rem;font-weight:700;color:#67e8f9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.example-box p{font-size:0.88rem;color:var(--dim2);line-height:1.7;margin-bottom:6px;}
+.example-box .ex-result{font-family:'Orbitron',monospace;color:#06b6d4;font-weight:700;font-size:0.95rem;}
+/* FAQ */
+.faq-item{border:1px solid rgba(255,255,255,0.07);border-radius:13px;margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:13px 16px;cursor:pointer;font-weight:600;font-size:0.88rem;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;}
+.faq-q:hover{background:rgba(124,58,237,0.08);}
+.faq-a{padding:0 16px;max-height:0;overflow:hidden;transition:all 0.3s;font-size:0.84rem;color:var(--dim2);line-height:1.7;}
+.faq-item.open .faq-a{padding:12px 16px;max-height:300px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-icon{transition:transform 0.3s;color:#7c3aed;}
+/* RELATED */
+.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;text-decoration:none;display:block;transition:all 0.25s;}
+.rel-card:hover{border-color:rgba(124,58,237,0.4);transform:translateY(-3px);}
+.rel-icon{font-size:1.4rem;margin-bottom:6px;display:block;}
+.rel-title{font-size:0.82rem;font-weight:600;color:var(--text);line-height:1.4;}
+.rel-desc{font-size:0.7rem;color:var(--dim);margin-top:3px;}
+/* SIDEBAR */
+.sidebar{position:sticky;top:20px;align-self:start;}
+.sb-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;}
+.sb-title{font-size:0.8rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.sb-link{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;text-decoration:none;font-size:0.83rem;color:var(--dim2);transition:all 0.2s;margin-bottom:3px;}
+.sb-link:hover{background:rgba(124,58,237,0.12);color:#a78bfa;}
+.sb-link .sb-ico{font-size:1rem;}
+.quick-fact{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.18);border-radius:12px;padding:12px;margin-bottom:8px;}
+.qf-label{font-size:0.67rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;}
+.qf-val{font-size:1rem;font-weight:700;color:#06b6d4;margin-top:3px;}
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:0.84rem;}
+.data-table th{background:rgba(124,58,237,0.25);color:white;padding:9px 11px;text-align:left;font-weight:600;}
+.data-table td{padding:8px 11px;border-bottom:1px solid rgba(255,255,255,0.05);color:var(--dim2);}
+.data-table tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+.data-table tr:hover td{background:rgba(124,58,237,0.06);}
+/* BMI METER */
+.bm-bar{height:10px;border-radius:5px;background:linear-gradient(90deg,#06b6d4 0%,#10b981 25%,#f59e0b 55%,#ef4444 75%,#991b1b 100%);margin:10px 0;position:relative;}
+.bm-ndl{position:absolute;top:-4px;width:4px;height:18px;background:white;border-radius:2px;box-shadow:0 0 8px white;transition:left 0.5s cubic-bezier(0.34,1.56,0.64,1);left:0;}
+.bm-lbl{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--dim);margin-bottom:8px;}
+/* UNIT TOGGLE */
+.utog{display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle;}
+.utog span{cursor:pointer;padding:2px 9px;border-radius:20px;font-size:0.67rem;font-weight:700;border:1px solid rgba(255,255,255,0.15);color:var(--dim);transition:all 0.2s;}
+.utog span.on{background:rgba(124,58,237,0.4);border-color:#7c3aed;color:white;}
+/* GREEN/WARN */
+.green-note{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:12px 14px;font-size:0.83rem;color:#6ee7b7;line-height:1.6;margin:12px 0;}
+footer{position:relative;z-index:1;text-align:center;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.05);color:var(--dim);font-size:0.76rem;}
+footer a{color:#7c3aed;text-decoration:none;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.4);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<nav>
+  <a href="index.html" class="logo">&#9889; CalcNova</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">&#x1F9EE; All Calculators</a>
+    <a href="bmi-calculator.html" class="nav-link">&#x2696;&#xFE0F; BMI</a>
+    <a href="age-calculator.html" class="nav-link">&#x1F570; Age</a>
+    <a href="loan-calculator.html" class="nav-link">&#x1F3E6; Loan</a>
+    <a href="cgpa-calculator.html" class="nav-link">&#x1F393; CGPA</a>
+    <a href="percentage-calculator.html" class="nav-link">&#x1F4AF; %</a>
+    <a href="salary-calculator.html" class="nav-link">&#x1F4B0; Salary</a>
+    <a href="blog-bmi.html" class="nav-link">&#x1F4D6; BMI Guide</a>
+  </div>
+</nav>
+<div class="page-wrap">
+
+<!-- MAIN COLUMN -->
+<div class="main-col">
+
+  <div class="bc"><a href="index.html">CalcNova</a> &#8250; <a href="index.html">Calculators</a> &#8250; BMI Calculator</div>
+
+  <div class="calc-hero">
+    <div class="hero-tag">&#x2696;&#xFE0F; Free Online Calculator</div>
+    <h1>BMI Calculator — Calculate Body Mass Index Instantly</h1>
+    <p>Calculate your Body Mass Index (BMI) in seconds using weight and height. Supports both centimeters and feet/inches. Includes visual BMI meter, health category and full formula explanation.</p>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-box">
+    <div class="calc-box-title">&#x2696;&#xFE0F; BMI Calculator — Instant Free Calculator</div>
+    
+<div class="ig"><label class="il">Weight (kg)</label><input type="number" class="ii" id="bw" placeholder="e.g. 70 kg"></div>
+<div class="ig">
+  <label class="il">Height <div class="utog"><span id="hcm" class="on" onclick="setH('cm')">cm</span><span id="hft" onclick="setH('ft')">feet</span></div></label>
+  <input type="number" class="ii" id="bh" placeholder="e.g. 175 cm">
+</div>
+<button class="btn" style="background:linear-gradient(135deg,#10b981,#06b6d4)" onclick="doBMI()">&#x2696;&#xFE0F; Calculate BMI</button>
+<div class="rb" id="bmi-res">
+  <div class="rl">Your BMI</div>
+  <div class="rv" id="bmi-v"></div>
+  <div class="bm-bar"><div class="bm-ndl" id="bmi-ndl"></div></div>
+  <div class="bm-lbl"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
+  <div class="rd" id="bmi-d"></div>
+</div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4D0;</span> BMI Calculator Formula</h2>
+    
+<div class="formula-box">
+  <div class="formula-text">BMI = Weight (kg) &#247; Height&sup2; (m)</div>
+  <div class="formula-note">Where height is measured in meters. Example: if height = 175cm, use 1.75m</div>
+</div>
+<p class="cp">BMI (Body Mass Index) is calculated by dividing a person's weight in kilograms by the square of their height in meters. This simple formula was developed by Belgian mathematician Adolphe Quetelet in the 1830s and remains the most widely used screening tool for weight categories worldwide.</p>
+<p class="cp">For <b>South Asians including Pakistanis</b>, health experts recommend slightly lower BMI thresholds because South Asian populations tend to carry more visceral fat at the same BMI compared to Western populations.</p>
+  </div>
+
+  <!-- HOW TO CALCULATE -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4CB;</span> How to Calculate BMI Calculator Manually</h2>
+    
+<ul class="steps">
+  <li><div class="step-num">1</div><span>Measure your <b>weight in kilograms</b> (kg). If you know your weight in pounds, divide by 2.205 to convert to kg.</span></li>
+  <li><div class="step-num">2</div><span>Measure your <b>height in meters</b> (m). If your height is 175 cm, divide by 100 to get 1.75 m.</span></li>
+  <li><div class="step-num">3</div><span><b>Square your height</b> — multiply height by itself. Example: 1.75 × 1.75 = 3.0625</span></li>
+  <li><div class="step-num">4</div><span><b>Divide your weight by height squared.</b> Example: 70 ÷ 3.0625 = 22.86</span></li>
+  <li><div class="step-num">5</div><span>Compare your result to the <b>BMI categories table</b> below to determine your health status.</span></li>
+</ul>
+<table class="data-table">
+  <tr><th>BMI Range</th><th>Category</th><th>South Asian Standard</th><th>Health Risk</th></tr>
+  <tr><td>&lt; 18.5</td><td>Underweight</td><td>&lt; 18.5</td><td>Moderate</td></tr>
+  <tr><td>18.5 – 24.9</td><td style="color:#10b981;font-weight:600">Normal Weight</td><td>18.5 – 22.9</td><td>Low</td></tr>
+  <tr><td>25.0 – 29.9</td><td style="color:#f59e0b;font-weight:600">Overweight</td><td>23.0 – 27.4</td><td>Moderate</td></tr>
+  <tr><td>&#8805; 30.0</td><td style="color:#ef4444;font-weight:600">Obese</td><td>&#8805; 27.5</td><td>High</td></tr>
+</table>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4CA;</span> Calculation Example</h2>
+    
+<div class="example-box">
+  <div class="ex-title">&#x1F4CB; Example Calculation</div>
+  <p><b>Person:</b> Weight = 70 kg, Height = 175 cm (1.75 m)</p>
+  <p><b>Step 1:</b> Height squared = 1.75 &times; 1.75 = <b>3.0625 m&sup2;</b></p>
+  <p><b>Step 2:</b> BMI = 70 &divide; 3.0625 = <b>22.86</b></p>
+  <p><b>Result:</b> <span class="ex-result">BMI = 22.86 — Normal Weight &#x2705;</span></p>
+</div>
+<div class="example-box">
+  <div class="ex-title">&#x1F4CB; Example in Feet</div>
+  <p><b>Person:</b> Weight = 65 kg, Height = 5 feet 6 inches</p>
+  <p><b>Convert:</b> 5'6" = (5×30.48) + (6×2.54) = 152.4 + 15.24 = <b>167.64 cm = 1.6764 m</b></p>
+  <p><b>BMI:</b> 65 &divide; (1.6764)&sup2; = 65 &divide; 2.810 = <span class="ex-result">BMI = 23.13 — Slightly Overweight</span></p>
+</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x2753;</span> Frequently Asked Questions</h2>
+    <div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>What is a healthy BMI range?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">For standard WHO guidelines, a healthy BMI is between 18.5 and 24.9. However, for South Asians and Pakistanis, health experts recommend a healthy range of 18.5 to 22.9, as South Asians are at higher health risk at lower BMI values.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>Is BMI the same for men and women?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">The BMI formula is the same for both men and women. However, women naturally have higher body fat percentage than men at the same BMI. Athletes may also have high BMI due to muscle mass, not fat.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>How to calculate BMI in feet and inches?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">First convert height to meters. For example, 5 feet 8 inches = (5 × 30.48) + (8 × 2.54) = 172.72 cm = 1.7272 m. Then use the formula: BMI = Weight ÷ (1.7272)². Our calculator handles this conversion automatically.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>Can BMI be wrong?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">BMI is a screening tool, not a definitive health measure. It does not account for muscle mass, bone density, age, or fat distribution. A very muscular person may have high BMI but be perfectly healthy. Always consult a doctor for medical advice.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>What BMI is considered obese?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">By WHO standards, a BMI of 30 or above is classified as obese. For Pakistanis and South Asians, the threshold is lower at 27.5 or above. Obesity significantly increases risk of diabetes, heart disease and hypertension.</div>
+</div>
+  </div>
+
+  <!-- RELATED -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F517;</span> Related Calculators</h2>
+    <div class="related-grid"><a href="age-calculator.html" class="rel-card"><span class="rel-icon">&#x1F570;</span><div class="rel-title">Age Calculator</div><div class="rel-desc">Exact age in years, months, days</div></a><a href="salary-calculator.html" class="rel-card"><span class="rel-icon">&#x1F4B0;</span><div class="rel-title">Salary Calculator</div><div class="rel-desc">Net salary Pakistan 2025</div></a><a href="loan-calculator.html" class="rel-card"><span class="rel-icon">&#x1F3E6;</span><div class="rel-title">Loan Calculator</div><div class="rel-desc">Monthly EMI Pakistan</div></a><a href="percentage-calculator.html" class="rel-card"><span class="rel-icon">&#x1F4AF;</span><div class="rel-title">Percentage Calculator</div><div class="rel-desc">Quick % calculations</div></a></div>
+  </div>
+
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-box">
+    <div class="sb-title">&#x26A1; Quick Facts</div>
+    <div class="quick-fact"><div class="qf-label">Normal BMI Range</div><div class="qf-val">18.5 – 24.9</div></div><div class="quick-fact"><div class="qf-label">South Asian Normal</div><div class="qf-val">18.5 – 22.9</div></div><div class="quick-fact"><div class="qf-label">Obese Threshold</div><div class="qf-val">BMI ≥ 30.0</div></div><div class="quick-fact"><div class="qf-label">Formula</div><div class="qf-val">Weight ÷ Height²</div></div>
+  </div>
+  <div class="sb-box">
+    <div class="sb-title">&#x1F9EE; Other Calculators</div>
+    <a href="age-calculator.html" class="sb-link"><span class="sb-ico">&#x1F570;</span>Age Calculator</a><a href="loan-calculator.html" class="sb-link"><span class="sb-ico">&#x1F3E6;</span>Loan Calculator</a><a href="cgpa-calculator.html" class="sb-link"><span class="sb-ico">&#x1F393;</span>CGPA Calculator</a><a href="percentage-calculator.html" class="sb-link"><span class="sb-ico">&#x1F4AF;</span>Percentage Calculator</a><a href="salary-calculator.html" class="sb-link"><span class="sb-ico">&#x1F4B0;</span>Salary Calculator</a><a href="index.html" class="sb-link"><span class="sb-ico">&#x1F9EE;</span>All Calculators</a>
+  </div>
+  <div class="sb-box" style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(6,182,212,0.08));border-color:rgba(124,58,237,0.2)">
+    <div class="sb-title" style="color:#a78bfa">&#x1F4D6; Read Our Guides</div>
+    <a href="blog-bmi.html" class="sb-link">&#x1F4AA; BMI Guide Pakistan</a>
+    <a href="blog-loan.html" class="sb-link">&#x1F3E6; Best Loans Pakistan</a>
+    <a href="blog-cgpa.html" class="sb-link">&#x1F393; CGPA Guide Pakistan</a>
+    <a href="blog-salary.html" class="sb-link">&#x1F4B0; Salary Guide 2025</a>
+  </div>
+</div>
+
+</div><!-- end page-wrap -->
+<footer>
+  <p>&#169; 2026 CalcNova.site &nbsp;|&nbsp;
+     <a href="index.html">Home</a> &nbsp;|&nbsp;
+     <a href="about.html">About</a> &nbsp;|&nbsp;
+     <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+     <a href="contact.html">Contact</a>
+  </p>
+  <p style="margin-top:6px">Free Online Calculators &#8212; CalcNova.site</p>
+</footer>
+<script>
+
+var _hu='cm';
+function setH(u){
+  _hu=u;
+  document.getElementById('hcm').className=u==='cm'?'on':'';
+  document.getElementById('hft').className=u==='ft'?'on':'';
+  document.getElementById('bh').placeholder=u==='cm'?'e.g. 175 cm':'e.g. 5.8 feet';
+  document.getElementById('bh').value='';
+}
+function doBMI(){
+  var w=parseFloat(document.getElementById('bw').value);
+  var hRaw=parseFloat(document.getElementById('bh').value);
+  if(!w||!hRaw){alert('Please enter weight and height!');return;}
+  var h;
+  if(_hu==='ft'||hRaw<=9){var ft=Math.floor(hRaw),inch=Math.round((hRaw-ft)*10);h=(ft*30.48+inch*2.54)/100;}
+  else h=hRaw/100;
+  if(h<1||h>2.5){alert('Please enter valid height!');return;}
+  var b=w/(h*h);
+  var cat,col;
+  if(b<18.5){cat='Underweight';col='#06b6d4';}
+  else if(b<25){cat='Normal Weight ✅';col='#10b981';}
+  else if(b<30){cat='Overweight ⚠️';col='#f59e0b';}
+  else{cat='Obese ❗';col='#ef4444';}
+  var pct=Math.min(Math.max((b-10)/30*100,2),98);
+  var v=document.getElementById('bmi-v');
+  v.textContent=b.toFixed(1)+' kg/m²';
+  v.style.background='linear-gradient(135deg,'+col+',#7c3aed)';
+  v.style.webkitBackgroundClip='text';v.style.webkitTextFillColor='transparent';
+  document.getElementById('bmi-ndl').style.left='calc('+pct+'% - 2px)';
+  document.getElementById('bmi-d').innerHTML='Category: <b>'+cat+'</b><br>Height: <b>'+h.toFixed(2)+'m</b> | Weight: <b>'+w+'kg</b>';
+  document.getElementById('bmi-res').classList.add('show');setTimeout(function(){document.getElementById('bmi-res').scrollIntoView({behavior:'smooth',block:'nearest'});},120);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Age Calculator — Calculate Exact Age Online Free | CalcNova</title>
+<meta name="description" content="Free online age calculator. Find your exact age in years, months and days from date of birth. Calculate age between any two dates instantly.">
+<meta name="keywords" content="age calculator, calculate age online, age calculator by date of birth, how old am I, exact age calculator, age in days calculator">
+<link rel="canonical" href="https://calcnova.site/age-calculator.html">
+<meta property="og:title" content="Age Calculator — Calculate Exact Age Online Free | CalcNova">
+<meta property="og:description" content="Free online age calculator. Find your exact age in years, months and days from date of birth. Calculate age between any two dates instantly.">
+<meta property="og:url" content="https://calcnova.site/age-calculator.html">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KYGR46ZFNW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KYGR46ZFNW');</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--bg:#050814;--text:#f0f4ff;--dim:#8892a4;--dim2:#a0aec0;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.10);--p:#7c3aed;--c:#06b6d4;--a:#f59e0b;--popup:#0d0f1e;--inp:rgba(255,255,255,0.06);--res:rgba(6,182,212,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(124,58,237,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(6,182,212,0.10) 0%,transparent 60%);}
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);background:rgba(5,8,20,0.85);}
+.logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1.2rem;background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:5px;flex-wrap:wrap;}
+.nav-link{font-size:0.72rem;color:var(--dim);background:rgba(255,255,255,0.04);padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);text-decoration:none;transition:all 0.2s;}
+.nav-link:hover{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4);color:#a78bfa;}
+/* LAYOUT */
+.page-wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:40px 22px 70px;display:grid;grid-template-columns:1fr 320px;gap:32px;}
+@media(max-width:768px){.page-wrap{grid-template-columns:1fr;}.sidebar{display:none;}}
+.main-col{}
+/* BREADCRUMB */
+.bc{font-size:0.75rem;color:var(--dim);margin-bottom:18px;}
+.bc a{color:#7c3aed;text-decoration:none;}
+/* HERO */
+.calc-hero{background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(6,182,212,0.08));border:1px solid rgba(124,58,237,0.2);border-radius:24px;padding:28px;margin-bottom:24px;}
+.hero-tag{display:inline-block;font-size:0.7rem;padding:3px 12px;border-radius:20px;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.calc-hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
+.calc-hero p{font-size:0.92rem;color:var(--dim2);line-height:1.7;}
+/* CALCULATOR BOX */
+.calc-box{background:var(--popup);border:1px solid rgba(255,255,255,0.1);border-radius:22px;padding:24px;margin-bottom:24px;}
+.calc-box-title{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.ig{margin-bottom:13px;}
+.il{font-size:0.71rem;color:var(--dim);margin-bottom:5px;display:block;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.ii{width:100%;background:var(--inp);border:1px solid rgba(255,255,255,0.10);border-radius:11px;padding:11px 13px;color:var(--text);font-size:0.92rem;outline:none;transition:all 0.2s;font-family:'Inter',sans-serif;}
+.ii:focus{border-color:rgba(124,58,237,0.6);box-shadow:0 0 0 3px rgba(124,58,237,0.12);}
+select.ii{cursor:pointer;-webkit-appearance:none;background-color:#0d1120;}
+select.ii option{background:#0d1120;}
+.btn{width:100%;padding:13px;border:none;border-radius:13px;color:white;font-size:0.93rem;font-weight:700;cursor:pointer;margin-top:5px;font-family:'Inter',sans-serif;transition:all 0.25s;}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.rb{background:var(--res);border:1px solid rgba(6,182,212,0.25);border-radius:14px;padding:15px 17px;margin-top:14px;display:none;animation:rslide 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+.rb.show{display:block;}
+@keyframes rslide{from{opacity:0;transform:translateY(10px) scale(0.97);}to{opacity:1;transform:none;}}
+.rl{font-size:0.67rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.rv{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#06b6d4,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3;margin-bottom:6px;}
+.rd{font-size:0.82rem;color:var(--dim2);line-height:1.75;}
+.rd b{color:var(--text);}
+/* CONTENT SECTIONS */
+.content-section{margin-bottom:22px;}
+.cs-title{font-size:1.15rem;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px;}
+.cs-title .cs-icon{font-size:1.1rem;}
+p.cp{font-size:0.93rem;color:var(--dim2);line-height:1.85;margin-bottom:10px;}
+p.cp b{color:var(--text);}
+/* FORMULA BOX */
+.formula-box{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-left:4px solid #7c3aed;border-radius:0 14px 14px 0;padding:16px 18px;margin:14px 0;font-family:'Inter',monospace;}
+.formula-text{font-size:1.05rem;font-weight:700;color:#a78bfa;letter-spacing:0.5px;}
+.formula-note{font-size:0.78rem;color:var(--dim);margin-top:6px;line-height:1.5;}
+/* STEPS */
+.steps{list-style:none;margin:12px 0;}
+.steps li{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;font-size:0.9rem;color:var(--dim2);line-height:1.6;}
+.step-num{min-width:24px;height:24px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+/* EXAMPLE BOX */
+.example-box{background:rgba(6,182,212,0.07);border:1px solid rgba(6,182,212,0.2);border-radius:14px;padding:16px 18px;margin:14px 0;}
+.example-box .ex-title{font-size:0.75rem;font-weight:700;color:#67e8f9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.example-box p{font-size:0.88rem;color:var(--dim2);line-height:1.7;margin-bottom:6px;}
+.example-box .ex-result{font-family:'Orbitron',monospace;color:#06b6d4;font-weight:700;font-size:0.95rem;}
+/* FAQ */
+.faq-item{border:1px solid rgba(255,255,255,0.07);border-radius:13px;margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:13px 16px;cursor:pointer;font-weight:600;font-size:0.88rem;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;}
+.faq-q:hover{background:rgba(124,58,237,0.08);}
+.faq-a{padding:0 16px;max-height:0;overflow:hidden;transition:all 0.3s;font-size:0.84rem;color:var(--dim2);line-height:1.7;}
+.faq-item.open .faq-a{padding:12px 16px;max-height:300px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-icon{transition:transform 0.3s;color:#7c3aed;}
+/* RELATED */
+.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;text-decoration:none;display:block;transition:all 0.25s;}
+.rel-card:hover{border-color:rgba(124,58,237,0.4);transform:translateY(-3px);}
+.rel-icon{font-size:1.4rem;margin-bottom:6px;display:block;}
+.rel-title{font-size:0.82rem;font-weight:600;color:var(--text);line-height:1.4;}
+.rel-desc{font-size:0.7rem;color:var(--dim);margin-top:3px;}
+/* SIDEBAR */
+.sidebar{position:sticky;top:20px;align-self:start;}
+.sb-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;}
+.sb-title{font-size:0.8rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.sb-link{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;text-decoration:none;font-size:0.83rem;color:var(--dim2);transition:all 0.2s;margin-bottom:3px;}
+.sb-link:hover{background:rgba(124,58,237,0.12);color:#a78bfa;}
+.sb-link .sb-ico{font-size:1rem;}
+.quick-fact{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.18);border-radius:12px;padding:12px;margin-bottom:8px;}
+.qf-label{font-size:0.67rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;}
+.qf-val{font-size:1rem;font-weight:700;color:#06b6d4;margin-top:3px;}
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:0.84rem;}
+.data-table th{background:rgba(124,58,237,0.25);color:white;padding:9px 11px;text-align:left;font-weight:600;}
+.data-table td{padding:8px 11px;border-bottom:1px solid rgba(255,255,255,0.05);color:var(--dim2);}
+.data-table tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+.data-table tr:hover td{background:rgba(124,58,237,0.06);}
+/* BMI METER */
+.bm-bar{height:10px;border-radius:5px;background:linear-gradient(90deg,#06b6d4 0%,#10b981 25%,#f59e0b 55%,#ef4444 75%,#991b1b 100%);margin:10px 0;position:relative;}
+.bm-ndl{position:absolute;top:-4px;width:4px;height:18px;background:white;border-radius:2px;box-shadow:0 0 8px white;transition:left 0.5s cubic-bezier(0.34,1.56,0.64,1);left:0;}
+.bm-lbl{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--dim);margin-bottom:8px;}
+/* UNIT TOGGLE */
+.utog{display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle;}
+.utog span{cursor:pointer;padding:2px 9px;border-radius:20px;font-size:0.67rem;font-weight:700;border:1px solid rgba(255,255,255,0.15);color:var(--dim);transition:all 0.2s;}
+.utog span.on{background:rgba(124,58,237,0.4);border-color:#7c3aed;color:white;}
+/* GREEN/WARN */
+.green-note{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:12px 14px;font-size:0.83rem;color:#6ee7b7;line-height:1.6;margin:12px 0;}
+footer{position:relative;z-index:1;text-align:center;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.05);color:var(--dim);font-size:0.76rem;}
+footer a{color:#7c3aed;text-decoration:none;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.4);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<nav>
+  <a href="index.html" class="logo">&#9889; CalcNova</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">&#x1F9EE; All Calculators</a>
+    <a href="bmi-calculator.html" class="nav-link">&#x2696;&#xFE0F; BMI</a>
+    <a href="age-calculator.html" class="nav-link">&#x1F570; Age</a>
+    <a href="loan-calculator.html" class="nav-link">&#x1F3E6; Loan</a>
+    <a href="cgpa-calculator.html" class="nav-link">&#x1F393; CGPA</a>
+    <a href="percentage-calculator.html" class="nav-link">&#x1F4AF; %</a>
+    <a href="salary-calculator.html" class="nav-link">&#x1F4B0; Salary</a>
+    <a href="blog-bmi.html" class="nav-link">&#x1F4D6; BMI Guide</a>
+  </div>
+</nav>
+<div class="page-wrap">
+
+<!-- MAIN COLUMN -->
+<div class="main-col">
+
+  <div class="bc"><a href="index.html">CalcNova</a> &#8250; <a href="index.html">Calculators</a> &#8250; Age Calculator</div>
+
+  <div class="calc-hero">
+    <div class="hero-tag">&#x1F570; Free Online Calculator</div>
+    <h1>Age Calculator — Find Your Exact Age in Years, Months & Days</h1>
+    <p>Calculate your exact age from date of birth in years, months and days. Also calculates total days lived, weeks, and days until your next birthday. Free, instant, no signup.</p>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-box">
+    <div class="calc-box-title">&#x1F570; Age Calculator — Instant Free Calculator</div>
+    
+<div class="ig"><label class="il">Date of Birth</label><input type="date" class="ii" id="adob"></div>
+<div class="ig"><label class="il">Calculate Age On (leave today for current age)</label><input type="date" class="ii" id="aon"></div>
+<button class="btn" style="background:linear-gradient(135deg,#7c3aed,#f59e0b)" onclick="doAge()">&#x1F570; Calculate My Age</button>
+<div class="rb" id="age-res">
+  <div class="rl">Your Exact Age</div>
+  <div class="rv" id="age-v"></div>
+  <div class="rd" id="age-d"></div>
+</div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4D0;</span> Age Calculator Formula</h2>
+    
+<div class="formula-box">
+  <div class="formula-text">Age = Current Date &#8722; Date of Birth</div>
+  <div class="formula-note">Calculated in years, months and remaining days</div>
+</div>
+<p class="cp">Age calculation seems simple but requires careful handling of months with different numbers of days, leap years, and the exact day difference. The formula involves subtracting the birth date from the current date while accounting for calendar irregularities.</p>
+<p class="cp">The most accurate method is to calculate year difference first, then adjust for months, and finally adjust for remaining days. This is exactly how our age calculator works.</p>
+  </div>
+
+  <!-- HOW TO CALCULATE -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4CB;</span> How to Calculate Age Calculator Manually</h2>
+    
+<ul class="steps">
+  <li><div class="step-num">1</div><span>Note today's date and your <b>date of birth</b> (day, month, year).</span></li>
+  <li><div class="step-num">2</div><span>Subtract the birth year from current year to get <b>approximate age in years</b>.</span></li>
+  <li><div class="step-num">3</div><span>Check if your birthday has <b>already passed this year</b>. If not, subtract 1 from the year count.</span></li>
+  <li><div class="step-num">4</div><span>Calculate the <b>remaining months</b> by subtracting birth month from current month.</span></li>
+  <li><div class="step-num">5</div><span>Calculate the <b>remaining days</b> by subtracting birth day from current day, adjusting for month lengths.</span></li>
+</ul>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4CA;</span> Calculation Example</h2>
+    
+<div class="example-box">
+  <div class="ex-title">&#x1F4CB; Example Calculation</div>
+  <p><b>Date of Birth:</b> March 15, 2000</p>
+  <p><b>Today:</b> March 15, 2026</p>
+  <p><b>Years:</b> 2026 &#8722; 2000 = 26 years</p>
+  <p><b>Months:</b> 0 months (birthday is today)</p>
+  <p><b>Result:</b> <span class="ex-result">Exactly 26 years old &#x1F382;</span></p>
+</div>
+<div class="example-box">
+  <div class="ex-title">&#x1F4CB; Example 2 — Mid Year</div>
+  <p><b>Date of Birth:</b> August 10, 1995</p>
+  <p><b>Today:</b> March 15, 2026</p>
+  <p><b>Result:</b> <span class="ex-result">30 years, 7 months, 5 days</span></p>
+  <p><b>Total days lived:</b> approximately 11,174 days</p>
+</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x2753;</span> Frequently Asked Questions</h2>
+    <div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>How do I calculate my exact age?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">To calculate exact age, subtract your birth date from today's date. Count full years first, then remaining months, then remaining days. Our age calculator does this automatically and also shows total days, weeks and hours lived.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>What is my age if I was born in 2000?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">If you were born in 2000, you are 25 or 26 years old in 2026 depending on whether your birthday has passed this year. Use our age calculator above for the exact result.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>How many days old am I?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">To find how many days old you are, multiply your age in years by 365 and add days from partial years. Our calculator shows exact days lived. For example, a 25-year-old is approximately 9,125 days old.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>Can I calculate age between two specific dates?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Yes! Our age calculator has a 'Calculate Age On' field where you can enter any date. This lets you calculate age at a past or future date, or find the age difference between two people.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>What is the formula for age in days?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Days of age = (Current date - Birth date) in milliseconds ÷ 86,400,000 (milliseconds per day). Our calculator uses this precise formula for accurate results.</div>
+</div>
+  </div>
+
+  <!-- RELATED -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F517;</span> Related Calculators</h2>
+    <div class="related-grid"><a href="bmi-calculator.html" class="rel-card"><span class="rel-icon">&#x2696;&#xFE0F;</span><div class="rel-title">BMI Calculator</div><div class="rel-desc">Body Mass Index</div></a><a href="percentage-calculator.html" class="rel-card"><span class="rel-icon">&#x1F4AF;</span><div class="rel-title">Percentage Calc</div><div class="rel-desc">Quick calculations</div></a><a href="loan-calculator.html" class="rel-card"><span class="rel-icon">&#x1F3E6;</span><div class="rel-title">Loan Calculator</div><div class="rel-desc">Monthly EMI</div></a><a href="cgpa-calculator.html" class="rel-card"><span class="rel-icon">&#x1F393;</span><div class="rel-title">CGPA Calculator</div><div class="rel-desc">University GPA</div></a></div>
+  </div>
+
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-box">
+    <div class="sb-title">&#x26A1; Quick Facts</div>
+    <div class="quick-fact"><div class="qf-label">Days in a Year</div><div class="qf-val">365 (366 in leap year)</div></div><div class="quick-fact"><div class="qf-label">Hours in a Year</div><div class="qf-val">8,760 hours</div></div><div class="quick-fact"><div class="qf-label">Weeks in a Year</div><div class="qf-val">52.18 weeks</div></div><div class="quick-fact"><div class="qf-label">Tool Type</div><div class="qf-val">Free, instant</div></div>
+  </div>
+  <div class="sb-box">
+    <div class="sb-title">&#x1F9EE; Other Calculators</div>
+    <a href="bmi-calculator.html" class="sb-link"><span class="sb-ico">&#x2696;&#xFE0F;</span>BMI Calculator</a><a href="loan-calculator.html" class="sb-link"><span class="sb-ico">&#x1F3E6;</span>Loan Calculator</a><a href="cgpa-calculator.html" class="sb-link"><span class="sb-ico">&#x1F393;</span>CGPA Calculator</a><a href="percentage-calculator.html" class="sb-link"><span class="sb-ico">&#x1F4AF;</span>Percentage Calculator</a><a href="salary-calculator.html" class="sb-link"><span class="sb-ico">&#x1F4B0;</span>Salary Calculator</a><a href="index.html" class="sb-link"><span class="sb-ico">&#x1F9EE;</span>All Calculators</a>
+  </div>
+  <div class="sb-box" style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(6,182,212,0.08));border-color:rgba(124,58,237,0.2)">
+    <div class="sb-title" style="color:#a78bfa">&#x1F4D6; Read Our Guides</div>
+    <a href="blog-bmi.html" class="sb-link">&#x1F4AA; BMI Guide Pakistan</a>
+    <a href="blog-loan.html" class="sb-link">&#x1F3E6; Best Loans Pakistan</a>
+    <a href="blog-cgpa.html" class="sb-link">&#x1F393; CGPA Guide Pakistan</a>
+    <a href="blog-salary.html" class="sb-link">&#x1F4B0; Salary Guide 2025</a>
+  </div>
+</div>
+
+</div><!-- end page-wrap -->
+<footer>
+  <p>&#169; 2026 CalcNova.site &nbsp;|&nbsp;
+     <a href="index.html">Home</a> &nbsp;|&nbsp;
+     <a href="about.html">About</a> &nbsp;|&nbsp;
+     <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+     <a href="contact.html">Contact</a>
+  </p>
+  <p style="margin-top:6px">Free Online Calculators &#8212; CalcNova.site</p>
+</footer>
+<script>
+
+document.getElementById('aon').value = new Date().toISOString().split('T')[0];
+function doAge(){
+  var d=new Date(document.getElementById('adob').value);
+  var o=new Date(document.getElementById('aon').value);
+  if(!d.getTime()||!o.getTime()){alert('Please select both dates!');return;}
+  if(d>o){alert('Date of birth cannot be in the future!');return;}
+  var y=o.getFullYear()-d.getFullYear(),m=o.getMonth()-d.getMonth(),dd=o.getDate()-d.getDate();
+  if(dd<0){m--;dd+=new Date(o.getFullYear(),o.getMonth(),0).getDate();}
+  if(m<0){y--;m+=12;}
+  var totalDays=Math.floor((o-d)/86400000);
+  var totalWeeks=Math.floor(totalDays/7);
+  var totalHours=totalDays*24;
+  var nb=new Date(o.getFullYear(),d.getMonth(),d.getDate());
+  if(nb<=o)nb.setFullYear(o.getFullYear()+1);
+  var daysToNext=Math.ceil((nb-o)/86400000);
+  document.getElementById('age-v').textContent=y+' years, '+m+' months, '+dd+' days';
+  document.getElementById('age-d').innerHTML=
+    '&#x1F4C5; Total days lived: <b>'+totalDays.toLocaleString()+'</b><br>'+
+    '&#x1F4C5; Total weeks: <b>'+totalWeeks.toLocaleString()+'</b><br>'+
+    '&#x23F0; Total hours: <b>'+totalHours.toLocaleString()+'</b><br>'+
+    '&#x1F382; Next birthday in: <b>'+daysToNext+' days</b>';
+  document.getElementById('age-res').classList.add('show');setTimeout(function(){document.getElementById('age-res').scrollIntoView({behavior:'smooth',block:'nearest'});},120);
+}
+</script>
+</body>
+</html>

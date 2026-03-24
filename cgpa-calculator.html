@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CGPA Calculator Pakistan — HEC Grading System | CalcNova</title>
+<meta name="description" content="Free CGPA calculator for Pakistani universities. Calculate CGPA and SGPA using HEC grading system. Supports 4.0 and 5.0 scale. NUST, FAST, COMSATS, UET, IBA students.">
+<meta name="keywords" content="CGPA calculator Pakistan, SGPA calculator, HEC grading system, GPA calculator Pakistan, CGPA to percentage Pakistan, NUST GPA calculator, FAST CGPA, university GPA Pakistan">
+<link rel="canonical" href="https://calcnova.site/cgpa-calculator.html">
+<meta property="og:title" content="CGPA Calculator Pakistan — HEC Grading System | CalcNova">
+<meta property="og:description" content="Free CGPA calculator for Pakistani universities. Calculate CGPA and SGPA using HEC grading system. Supports 4.0 and 5.0 scale. NUST, FAST, COMSATS, UET, IBA students.">
+<meta property="og:url" content="https://calcnova.site/cgpa-calculator.html">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KYGR46ZFNW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-KYGR46ZFNW');</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--bg:#050814;--text:#f0f4ff;--dim:#8892a4;--dim2:#a0aec0;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.10);--p:#7c3aed;--c:#06b6d4;--a:#f59e0b;--popup:#0d0f1e;--inp:rgba(255,255,255,0.06);--res:rgba(6,182,212,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 20% 10%,rgba(124,58,237,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(6,182,212,0.10) 0%,transparent 60%);}
+nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);background:rgba(5,8,20,0.85);}
+.logo{font-family:'Orbitron',monospace;font-weight:900;font-size:1.2rem;background:linear-gradient(135deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;}
+.nav-links{display:flex;gap:5px;flex-wrap:wrap;}
+.nav-link{font-size:0.72rem;color:var(--dim);background:rgba(255,255,255,0.04);padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,0.08);text-decoration:none;transition:all 0.2s;}
+.nav-link:hover{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4);color:#a78bfa;}
+/* LAYOUT */
+.page-wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:40px 22px 70px;display:grid;grid-template-columns:1fr 320px;gap:32px;}
+@media(max-width:768px){.page-wrap{grid-template-columns:1fr;}.sidebar{display:none;}}
+.main-col{}
+/* BREADCRUMB */
+.bc{font-size:0.75rem;color:var(--dim);margin-bottom:18px;}
+.bc a{color:#7c3aed;text-decoration:none;}
+/* HERO */
+.calc-hero{background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(6,182,212,0.08));border:1px solid rgba(124,58,237,0.2);border-radius:24px;padding:28px;margin-bottom:24px;}
+.hero-tag{display:inline-block;font-size:0.7rem;padding:3px 12px;border-radius:20px;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.3);color:#a78bfa;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;}
+.calc-hero h1{font-family:'Orbitron',monospace;font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:900;line-height:1.2;margin-bottom:10px;}
+.calc-hero p{font-size:0.92rem;color:var(--dim2);line-height:1.7;}
+/* CALCULATOR BOX */
+.calc-box{background:var(--popup);border:1px solid rgba(255,255,255,0.1);border-radius:22px;padding:24px;margin-bottom:24px;}
+.calc-box-title{font-family:'Orbitron',monospace;font-size:0.95rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.ig{margin-bottom:13px;}
+.il{font-size:0.71rem;color:var(--dim);margin-bottom:5px;display:block;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.ii{width:100%;background:var(--inp);border:1px solid rgba(255,255,255,0.10);border-radius:11px;padding:11px 13px;color:var(--text);font-size:0.92rem;outline:none;transition:all 0.2s;font-family:'Inter',sans-serif;}
+.ii:focus{border-color:rgba(124,58,237,0.6);box-shadow:0 0 0 3px rgba(124,58,237,0.12);}
+select.ii{cursor:pointer;-webkit-appearance:none;background-color:#0d1120;}
+select.ii option{background:#0d1120;}
+.btn{width:100%;padding:13px;border:none;border-radius:13px;color:white;font-size:0.93rem;font-weight:700;cursor:pointer;margin-top:5px;font-family:'Inter',sans-serif;transition:all 0.25s;}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1);}
+.rb{background:var(--res);border:1px solid rgba(6,182,212,0.25);border-radius:14px;padding:15px 17px;margin-top:14px;display:none;animation:rslide 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+.rb.show{display:block;}
+@keyframes rslide{from{opacity:0;transform:translateY(10px) scale(0.97);}to{opacity:1;transform:none;}}
+.rl{font-size:0.67rem;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
+.rv{font-family:'Orbitron',monospace;font-size:1.4rem;font-weight:700;background:linear-gradient(135deg,#06b6d4,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3;margin-bottom:6px;}
+.rd{font-size:0.82rem;color:var(--dim2);line-height:1.75;}
+.rd b{color:var(--text);}
+/* CONTENT SECTIONS */
+.content-section{margin-bottom:22px;}
+.cs-title{font-size:1.15rem;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:8px;}
+.cs-title .cs-icon{font-size:1.1rem;}
+p.cp{font-size:0.93rem;color:var(--dim2);line-height:1.85;margin-bottom:10px;}
+p.cp b{color:var(--text);}
+/* FORMULA BOX */
+.formula-box{background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-left:4px solid #7c3aed;border-radius:0 14px 14px 0;padding:16px 18px;margin:14px 0;font-family:'Inter',monospace;}
+.formula-text{font-size:1.05rem;font-weight:700;color:#a78bfa;letter-spacing:0.5px;}
+.formula-note{font-size:0.78rem;color:var(--dim);margin-top:6px;line-height:1.5;}
+/* STEPS */
+.steps{list-style:none;margin:12px 0;}
+.steps li{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;font-size:0.9rem;color:var(--dim2);line-height:1.6;}
+.step-num{min-width:24px;height:24px;background:linear-gradient(135deg,#7c3aed,#06b6d4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:white;flex-shrink:0;margin-top:1px;}
+/* EXAMPLE BOX */
+.example-box{background:rgba(6,182,212,0.07);border:1px solid rgba(6,182,212,0.2);border-radius:14px;padding:16px 18px;margin:14px 0;}
+.example-box .ex-title{font-size:0.75rem;font-weight:700;color:#67e8f9;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.example-box p{font-size:0.88rem;color:var(--dim2);line-height:1.7;margin-bottom:6px;}
+.example-box .ex-result{font-family:'Orbitron',monospace;color:#06b6d4;font-weight:700;font-size:0.95rem;}
+/* FAQ */
+.faq-item{border:1px solid rgba(255,255,255,0.07);border-radius:13px;margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:13px 16px;cursor:pointer;font-weight:600;font-size:0.88rem;background:rgba(255,255,255,0.02);display:flex;justify-content:space-between;align-items:center;}
+.faq-q:hover{background:rgba(124,58,237,0.08);}
+.faq-a{padding:0 16px;max-height:0;overflow:hidden;transition:all 0.3s;font-size:0.84rem;color:var(--dim2);line-height:1.7;}
+.faq-item.open .faq-a{padding:12px 16px;max-height:300px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-icon{transition:transform 0.3s;color:#7c3aed;}
+/* RELATED */
+.related-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px;}
+.rel-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;text-decoration:none;display:block;transition:all 0.25s;}
+.rel-card:hover{border-color:rgba(124,58,237,0.4);transform:translateY(-3px);}
+.rel-icon{font-size:1.4rem;margin-bottom:6px;display:block;}
+.rel-title{font-size:0.82rem;font-weight:600;color:var(--text);line-height:1.4;}
+.rel-desc{font-size:0.7rem;color:var(--dim);margin-top:3px;}
+/* SIDEBAR */
+.sidebar{position:sticky;top:20px;align-self:start;}
+.sb-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;}
+.sb-title{font-size:0.8rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.sb-link{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;text-decoration:none;font-size:0.83rem;color:var(--dim2);transition:all 0.2s;margin-bottom:3px;}
+.sb-link:hover{background:rgba(124,58,237,0.12);color:#a78bfa;}
+.sb-link .sb-ico{font-size:1rem;}
+.quick-fact{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.18);border-radius:12px;padding:12px;margin-bottom:8px;}
+.qf-label{font-size:0.67rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.5px;}
+.qf-val{font-size:1rem;font-weight:700;color:#06b6d4;margin-top:3px;}
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:0.84rem;}
+.data-table th{background:rgba(124,58,237,0.25);color:white;padding:9px 11px;text-align:left;font-weight:600;}
+.data-table td{padding:8px 11px;border-bottom:1px solid rgba(255,255,255,0.05);color:var(--dim2);}
+.data-table tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+.data-table tr:hover td{background:rgba(124,58,237,0.06);}
+/* BMI METER */
+.bm-bar{height:10px;border-radius:5px;background:linear-gradient(90deg,#06b6d4 0%,#10b981 25%,#f59e0b 55%,#ef4444 75%,#991b1b 100%);margin:10px 0;position:relative;}
+.bm-ndl{position:absolute;top:-4px;width:4px;height:18px;background:white;border-radius:2px;box-shadow:0 0 8px white;transition:left 0.5s cubic-bezier(0.34,1.56,0.64,1);left:0;}
+.bm-lbl{display:flex;justify-content:space-between;font-size:0.6rem;color:var(--dim);margin-bottom:8px;}
+/* UNIT TOGGLE */
+.utog{display:inline-flex;gap:4px;margin-left:8px;vertical-align:middle;}
+.utog span{cursor:pointer;padding:2px 9px;border-radius:20px;font-size:0.67rem;font-weight:700;border:1px solid rgba(255,255,255,0.15);color:var(--dim);transition:all 0.2s;}
+.utog span.on{background:rgba(124,58,237,0.4);border-color:#7c3aed;color:white;}
+/* GREEN/WARN */
+.green-note{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:12px 14px;font-size:0.83rem;color:#6ee7b7;line-height:1.6;margin:12px 0;}
+footer{position:relative;z-index:1;text-align:center;padding:24px 20px;border-top:1px solid rgba(255,255,255,0.05);color:var(--dim);font-size:0.76rem;}
+footer a{color:#7c3aed;text-decoration:none;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:rgba(124,58,237,0.4);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<nav>
+  <a href="index.html" class="logo">&#9889; CalcNova</a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">&#x1F9EE; All Calculators</a>
+    <a href="bmi-calculator.html" class="nav-link">&#x2696;&#xFE0F; BMI</a>
+    <a href="age-calculator.html" class="nav-link">&#x1F570; Age</a>
+    <a href="loan-calculator.html" class="nav-link">&#x1F3E6; Loan</a>
+    <a href="cgpa-calculator.html" class="nav-link">&#x1F393; CGPA</a>
+    <a href="percentage-calculator.html" class="nav-link">&#x1F4AF; %</a>
+    <a href="salary-calculator.html" class="nav-link">&#x1F4B0; Salary</a>
+    <a href="blog-bmi.html" class="nav-link">&#x1F4D6; BMI Guide</a>
+  </div>
+</nav>
+<div class="page-wrap">
+
+<!-- MAIN COLUMN -->
+<div class="main-col">
+
+  <div class="bc"><a href="index.html">CalcNova</a> &#8250; <a href="index.html">Calculators</a> &#8250; CGPA Calculator</div>
+
+  <div class="calc-hero">
+    <div class="hero-tag">&#x1F393; Free Online Calculator</div>
+    <h1>CGPA & SGPA Calculator Pakistan — HEC Grading System</h1>
+    <p>Calculate CGPA (Cumulative GPA) and SGPA (Semester GPA) for all Pakistani universities. Supports HEC 4.0 scale used by NUST, FAST, COMSATS, UET, IBA and more. Enter your subjects and credit hours for instant results.</p>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-box">
+    <div class="calc-box-title">&#x1F393; CGPA Calculator — Instant Free Calculator</div>
+    
+<div style="display:flex;gap:8px;margin-bottom:14px">
+  <button id="tab-c" onclick="swTab('c')" style="flex:1;padding:9px;background:linear-gradient(135deg,#7c3aed,#6366f1);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;font-size:.84rem">CGPA (All Semesters)</button>
+  <button id="tab-s" onclick="swTab('s')" style="flex:1;padding:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--dim);cursor:pointer;font-family:Inter,sans-serif;font-size:.84rem">SGPA (One Semester)</button>
+</div>
+<div class="ig"><label class="il">University GPA Scale</label><select class="ii" id="gsc"><option value="4">4.0 Scale — NUST, FAST, COMSATS, UET, IBA</option><option value="5">5.0 Scale</option></select></div>
+<div id="ct"><div id="crow"></div><button onclick="addR('c')" style="width:100%;padding:8px;background:rgba(124,58,237,0.12);border:1px dashed rgba(124,58,237,0.35);border-radius:9px;color:#a78bfa;cursor:pointer;margin-bottom:10px;font-size:.83rem;font-family:Inter,sans-serif">+ Add Subject</button><button class="btn" style="background:linear-gradient(135deg,#7209b7,#4361ee)" onclick="doC()">&#x1F393; Calculate CGPA</button></div>
+<div id="st" style="display:none"><div id="srow"></div><button onclick="addR('s')" style="width:100%;padding:8px;background:rgba(6,182,212,0.12);border:1px dashed rgba(6,182,212,0.35);border-radius:9px;color:#67e8f9;cursor:pointer;margin-bottom:10px;font-size:.83rem;font-family:Inter,sans-serif">+ Add Subject</button><button class="btn" style="background:linear-gradient(135deg,#4361ee,#06b6d4)" onclick="doS()">&#x1F4CA; Calculate SGPA</button></div>
+<div class="rb" id="gpa-res"><div class="rl" id="gpa-rl">Your CGPA</div><div class="rv" id="gpa-v"></div><div class="rd" id="gpa-d"></div></div>
+  </div>
+
+  <!-- FORMULA -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4D0;</span> CGPA Calculator Formula</h2>
+    
+<div class="formula-box">
+  <div class="formula-text">CGPA = &sum; (Grade Points &times; Credit Hours) &divide; &sum; Credit Hours</div>
+  <div class="formula-note">Sum all (GPA × Credits) for every subject, then divide by total credit hours</div>
+</div>
+<p class="cp">CGPA is the weighted average of grade points across all semesters, where each subject's contribution is proportional to its credit hours. A 3-credit subject has three times the impact on your CGPA compared to a 1-credit subject.</p>
+<p class="cp">The <b>HEC (Higher Education Commission)</b> Pakistan uses a standard 4.0 scale for most universities. Some universities like Punjab University use percentage marks directly. The conversion formula recommended by HEC is: Percentage = (CGPA ÷ 4.0) × 100.</p>
+  </div>
+
+  <!-- HOW TO CALCULATE -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4CB;</span> How to Calculate CGPA Calculator Manually</h2>
+    
+<ul class="steps">
+  <li><div class="step-num">1</div><span>List all your subjects with their <b>grade point values</b> (e.g., A = 4.0, B+ = 3.3, B = 3.0 on 4.0 scale).</span></li>
+  <li><div class="step-num">2</div><span>Note the <b>credit hours</b> for each subject (typically 2–4 credits per subject).</span></li>
+  <li><div class="step-num">3</div><span><b>Multiply</b> each subject's grade point by its credit hours to get quality points.</span></li>
+  <li><div class="step-num">4</div><span><b>Add up</b> all quality points and add up all credit hours separately.</span></li>
+  <li><div class="step-num">5</div><span><b>Divide</b> total quality points by total credit hours = your CGPA.</span></li>
+</ul>
+<table class="data-table">
+  <tr><th>Grade</th><th>GPA (4.0 Scale)</th><th>Percentage</th><th>Description</th></tr>
+  <tr><td style="color:#f59e0b;font-weight:700">A+</td><td>4.0</td><td>90–100%</td><td>Outstanding</td></tr>
+  <tr><td style="color:#10b981;font-weight:700">A</td><td>4.0</td><td>85–89%</td><td>Excellent</td></tr>
+  <tr><td style="color:#10b981;font-weight:700">A-</td><td>3.7</td><td>80–84%</td><td>Very Good</td></tr>
+  <tr><td style="color:#a78bfa;font-weight:700">B+</td><td>3.3</td><td>75–79%</td><td>Good</td></tr>
+  <tr><td style="color:#a78bfa;font-weight:700">B</td><td>3.0</td><td>70–74%</td><td>Good</td></tr>
+  <tr><td style="color:#67e8f9;font-weight:700">B-</td><td>2.7</td><td>65–69%</td><td>Above Average</td></tr>
+  <tr><td style="color:#fbbf24;font-weight:700">C+</td><td>2.3</td><td>60–64%</td><td>Average</td></tr>
+  <tr><td style="color:#f87171;font-weight:700">D</td><td>1.0</td><td>50–59%</td><td>Pass</td></tr>
+  <tr><td style="color:#ef4444;font-weight:700">F</td><td>0.0</td><td>&lt;50%</td><td>Fail</td></tr>
+</table>
+  </div>
+
+  <!-- EXAMPLE -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F4CA;</span> Calculation Example</h2>
+    
+<div class="example-box">
+  <div class="ex-title">&#x1F4CB; Example CGPA Calculation</div>
+  <p><b>Semester subjects:</b></p>
+  <p>&#x2022; Calculus (3 credits) — Grade A (4.0) → 4.0 × 3 = <b>12.0</b></p>
+  <p>&#x2022; Physics (3 credits) — Grade B+ (3.3) → 3.3 × 3 = <b>9.9</b></p>
+  <p>&#x2022; English (2 credits) — Grade A- (3.7) → 3.7 × 2 = <b>7.4</b></p>
+  <p>&#x2022; Lab (1 credit) — Grade B (3.0) → 3.0 × 1 = <b>3.0</b></p>
+  <p><b>Total Quality Points:</b> 12.0 + 9.9 + 7.4 + 3.0 = <b>32.3</b></p>
+  <p><b>Total Credits:</b> 3 + 3 + 2 + 1 = <b>9</b></p>
+  <p><b>CGPA/SGPA:</b> <span class="ex-result">32.3 ÷ 9 = 3.59 / 4.0 (A grade)</span></p>
+</div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x2753;</span> Frequently Asked Questions</h2>
+    <div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>What is a good CGPA in Pakistan?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">A CGPA of 3.0 or above (out of 4.0) is generally considered good in Pakistan. For top companies (systems, NUST alumni networks) and HEC scholarships, 3.5+ is ideal. Most IT companies in Pakistan accept 2.5+ for fresh graduates.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>How to convert CGPA to percentage for Pakistani universities?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Use HEC's official formula: Percentage = (CGPA ÷ 4.0) × 100. So a CGPA of 3.5 equals 87.5%. Some employers also accept CGPA × 25 as a rough conversion. Always mention both your CGPA and the maximum scale.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>What is the difference between CGPA and SGPA?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">SGPA (Semester GPA) is the GPA for a single semester only. CGPA (Cumulative GPA) is the overall average across all semesters you have completed. CGPA is what appears on your degree and transcript.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>Is 3.0 CGPA enough for jobs in Pakistan?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">For most IT companies and MNCs in Pakistan, 2.5+ CGPA is the minimum requirement. After 2-3 years of work experience, CGPA matters much less than your skills and portfolio. Many successful Pakistani tech professionals had average CGPAs.</div>
+</div><div class="faq-item">
+  <div class="faq-q" onclick="this.closest('.faq-item').classList.toggle('open')">
+    <span>Can I improve my CGPA in the final semester?</span><span class="faq-icon">+</span>
+  </div>
+  <div class="faq-a">Yes, but the impact is limited. In the final semester, even getting perfect grades only changes the CGPA slightly because previous semesters have more weight. Retaking failed courses (if allowed by your university) has a bigger impact.</div>
+</div>
+  </div>
+
+  <!-- RELATED -->
+  <div class="content-section">
+    <h2 class="cs-title"><span class="cs-icon">&#x1F517;</span> Related Calculators</h2>
+    <div class="related-grid"><a href="percentage-calculator.html" class="rel-card"><span class="rel-icon">&#x1F4AF;</span><div class="rel-title">Percentage Calc</div><div class="rel-desc">Marks to percentage</div></a><a href="age-calculator.html" class="rel-card"><span class="rel-icon">&#x1F570;</span><div class="rel-title">Age Calculator</div><div class="rel-desc">How old are you?</div></a><a href="salary-calculator.html" class="rel-card"><span class="rel-icon">&#x1F4B0;</span><div class="rel-title">Salary Calculator</div><div class="rel-desc">What will you earn?</div></a><a href="loan-calculator.html" class="rel-card"><span class="rel-icon">&#x1F3E6;</span><div class="rel-title">Loan Calculator</div><div class="rel-desc">Monthly EMI</div></a></div>
+  </div>
+
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-box">
+    <div class="sb-title">&#x26A1; Quick Facts</div>
+    <div class="quick-fact"><div class="qf-label">HEC Standard Scale</div><div class="qf-val">4.0 GPA</div></div><div class="quick-fact"><div class="qf-label">Good CGPA</div><div class="qf-val">3.0 and above</div></div><div class="quick-fact"><div class="qf-label">HEC Scholarship Min</div><div class="qf-val">3.0 CGPA</div></div><div class="quick-fact"><div class="qf-label">A Grade = </div><div class="qf-val">4.0 GPA</div></div>
+  </div>
+  <div class="sb-box">
+    <div class="sb-title">&#x1F9EE; Other Calculators</div>
+    <a href="bmi-calculator.html" class="sb-link"><span class="sb-ico">&#x2696;&#xFE0F;</span>BMI Calculator</a><a href="age-calculator.html" class="sb-link"><span class="sb-ico">&#x1F570;</span>Age Calculator</a><a href="loan-calculator.html" class="sb-link"><span class="sb-ico">&#x1F3E6;</span>Loan Calculator</a><a href="percentage-calculator.html" class="sb-link"><span class="sb-ico">&#x1F4AF;</span>Percentage Calculator</a><a href="salary-calculator.html" class="sb-link"><span class="sb-ico">&#x1F4B0;</span>Salary Calculator</a><a href="index.html" class="sb-link"><span class="sb-ico">&#x1F9EE;</span>All Calculators</a>
+  </div>
+  <div class="sb-box" style="background:linear-gradient(135deg,rgba(124,58,237,0.1),rgba(6,182,212,0.08));border-color:rgba(124,58,237,0.2)">
+    <div class="sb-title" style="color:#a78bfa">&#x1F4D6; Read Our Guides</div>
+    <a href="blog-bmi.html" class="sb-link">&#x1F4AA; BMI Guide Pakistan</a>
+    <a href="blog-loan.html" class="sb-link">&#x1F3E6; Best Loans Pakistan</a>
+    <a href="blog-cgpa.html" class="sb-link">&#x1F393; CGPA Guide Pakistan</a>
+    <a href="blog-salary.html" class="sb-link">&#x1F4B0; Salary Guide 2025</a>
+  </div>
+</div>
+
+</div><!-- end page-wrap -->
+<footer>
+  <p>&#169; 2026 CalcNova.site &nbsp;|&nbsp;
+     <a href="index.html">Home</a> &nbsp;|&nbsp;
+     <a href="about.html">About</a> &nbsp;|&nbsp;
+     <a href="privacy.html">Privacy Policy</a> &nbsp;|&nbsp;
+     <a href="contact.html">Contact</a>
+  </p>
+  <p style="margin-top:6px">Free Online Calculators &#8212; CalcNova.site</p>
+</footer>
+<script>
+
+function swTab(t){
+  document.getElementById('ct').style.display=t==='c'?'block':'none';
+  document.getElementById('st').style.display=t==='s'?'block':'none';
+  document.getElementById('tab-c').style.cssText=t==='c'?'flex:1;padding:9px;background:linear-gradient(135deg,#7c3aed,#6366f1);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;font-size:.84rem':'flex:1;padding:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--dim);cursor:pointer;font-family:Inter,sans-serif;font-size:.84rem';
+  document.getElementById('tab-s').style.cssText=t==='s'?'flex:1;padding:9px;background:linear-gradient(135deg,#4361ee,#06b6d4);border:none;border-radius:10px;color:white;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;font-size:.84rem':'flex:1;padding:9px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--dim);cursor:pointer;font-family:Inter,sans-serif;font-size:.84rem';
+  document.getElementById('gpa-res').classList.remove('show');
+}
+function addR(t){
+  var sc=parseFloat(document.getElementById('gsc').value)||4;
+  var d=document.getElementById(t+'row'),r=document.createElement('div');
+  r.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:7px';
+  r.innerHTML='<input class="ii" placeholder="Subject" style="padding:8px 10px;font-size:.81rem"><input class="ii '+t+'gp" type="number" placeholder="GPA(0-'+sc+')" min="0" max="'+sc+'" step="0.1" style="padding:8px 10px;font-size:.81rem"><input class="ii '+t+'cr" type="number" placeholder="Credits" value="3" style="padding:8px 10px;font-size:.81rem"><button onclick="this.parentElement.remove()" style="background:rgba(244,63,94,.18);border:1px solid rgba(244,63,94,.3);border-radius:8px;color:#f87171;cursor:pointer;padding:0 8px;font-size:.82rem">&#x2715;</button>';
+  d.appendChild(r);
+}
+function calcIt(gClass,cClass){
+  var sc=parseFloat(document.getElementById('gsc').value)||4;
+  var gps=document.querySelectorAll('.'+gClass),crs=document.querySelectorAll('.'+cClass);
+  var tw=0,tp=0;
+  gps.forEach(function(g,i){var gv=parseFloat(g.value),cv=parseFloat(crs[i].value);if(!isNaN(gv)&&!isNaN(cv)&&cv>0&&gv<=sc){tp+=gv*cv;tw+=cv;}});
+  return{tw:tw,tp:tp,sc:sc};
+}
+function getGr(g,sc){var p=g/sc*100;if(p>=90)return'A+ (Excellent)';if(p>=85)return'A';if(p>=80)return'A-';if(p>=75)return'B+';if(p>=70)return'B';if(p>=65)return'B-';if(p>=60)return'C+';if(p>=55)return'C';if(p>=50)return'D';return'F';}
+function doC(){
+  var r=calcIt('cgp','ccr');
+  if(!r.tw){alert('Add at least one subject with GPA and credits!');return;}
+  var g=r.tp/r.tw;
+  document.getElementById('gpa-rl').textContent='Your CGPA';
+  document.getElementById('gpa-v').textContent=g.toFixed(2)+' / '+r.sc+'.0';
+  document.getElementById('gpa-d').innerHTML='&#x1F4CA; Grade: <b>'+getGr(g,r.sc)+'</b><br>&#x1F4C8; Percentage: <b>'+(g/r.sc*100).toFixed(1)+'%</b><br>&#x2696;&#xFE0F; Total credit hours: <b>'+r.tw+'</b><br>&#x1F3AF; Total quality points: <b>'+r.tp.toFixed(2)+'</b>';
+  document.getElementById('gpa-res').classList.add('show');setTimeout(function(){document.getElementById('gpa-res').scrollIntoView({behavior:'smooth',block:'nearest'});},120);
+}
+function doS(){
+  var r=calcIt('sgp','scr');
+  if(!r.tw){alert('Add at least one subject!');return;}
+  var g=r.tp/r.tw;
+  document.getElementById('gpa-rl').textContent='Your SGPA';
+  document.getElementById('gpa-v').textContent=g.toFixed(2)+' / '+r.sc+'.0';
+  document.getElementById('gpa-d').innerHTML='&#x1F4CA; Grade: <b>'+getGr(g,r.sc)+'</b><br>&#x1F4C8; Percentage: <b>'+(g/r.sc*100).toFixed(1)+'%</b><br>&#x2696;&#xFE0F; Semester credits: <b>'+r.tw+'</b>';
+  document.getElementById('gpa-res').classList.add('show');setTimeout(function(){document.getElementById('gpa-res').scrollIntoView({behavior:'smooth',block:'nearest'});},120);
+}
+// Auto add first row
+addR('c');
+</script>
+</body>
+</html>
