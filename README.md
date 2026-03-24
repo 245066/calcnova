@@ -153,8 +153,7 @@ Hi! I'm a **Cyber Security student** from Pakistan with skills in:
 I built CalcNova to solve a real problem — Pakistan-focused calculators with clean UI, no ads, and no signups required.
 
 - 🌐 Website: [calcnova.site](https://calcnova.site)
-- 💼 LinkedIn: [linkedin.com/in/YOUR-PROFILE](#)
-- 🐙 GitHub: [github.com/YOUR-USERNAME](#)
+- 🐙 GitHub: [github.com/245066](#)
 
 ---
 
